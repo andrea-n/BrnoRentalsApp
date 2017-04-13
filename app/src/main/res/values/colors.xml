@@ -8,4 +8,5 @@
     <color name="colorAccent2Light">#63d861</color>
     <color name="windowBackground">#f3f3f5</color>
     <color name="cardBackground">#ffffff</color>
+    <color name="colorLightText">#ffffff</color>
 </resources>
