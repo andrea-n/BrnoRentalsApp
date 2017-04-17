@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -20,12 +20,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 		}
 	}
 
-	public MyAdapter(List<Offer> myDataset) {
+	public OffersListAdapter(List<Offer> myDataset) {
 		mDataset = myDataset;
 	}
 
 	@Override
-	public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public OffersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
 
 		ViewHolder vh = new ViewHolder(layout);

@@ -21,14 +21,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
 
-        List<Offer> offerList = new ArrayList<>();
-        offerList.add(new Offer("Pronájem 2+1 Nový Lískovec"));
-        offerList.add(new Offer("Nabízím k pronájmu 3+kk v Brně Židenicích"));
-
         RecyclerView recycler = (RecyclerView) findViewById(R.id.offersRecycler);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setAdapter(new MyAdapter(offerList));
+
+        RentalsAPIClient client = new RentalsAPIClient(this);
+        OfferService offerService = new OfferService(recycler, client);
+        offerService.loadOffers();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
