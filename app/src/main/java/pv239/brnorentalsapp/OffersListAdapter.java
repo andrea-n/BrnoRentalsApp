@@ -12,11 +12,17 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	private List<Offer> mDataset;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView mTextView;
+		public TextView titleTextView;
+		public TextView streetTextView;
+		public TextView priceTextView;
+		public TextView descTextView;
 
 		public ViewHolder(LinearLayout layout) {
 			super(layout);
-			mTextView = (TextView) layout.findViewById(R.id.offerCardTitle);
+			titleTextView = (TextView) layout.findViewById(R.id.offerCardTitle);
+			streetTextView = (TextView) layout.findViewById(R.id.offerCardStreet);
+			priceTextView = (TextView) layout.findViewById(R.id.offerCardPrice);
+			descTextView = (TextView) layout.findViewById(R.id.offerCardDesc);
 		}
 	}
 
@@ -35,7 +41,10 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		Offer offer = (Offer) getItem(position);
-		holder.mTextView.setText(offer.title);
+		holder.titleTextView.setText(offer.title);
+		holder.streetTextView.setText(offer.street);
+		holder.priceTextView.setText(offer.price);
+		holder.descTextView.setText(offer.description);
 	}
 
 	@Override
