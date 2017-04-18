@@ -3,4 +3,21 @@
     <string name="settings">Settings</string>
     <string name="title_activity_offer">Rentals offer</string>
     <string name="action_settings">Settings</string>
+    <string name="settings_street">Street</string>
+    <string name="settings_price">Price</string>
+    <string name="settings_type">Type</string>
+    <string-array name="types_array">
+        <item>1+kk</item>
+        <item>1+1</item>
+        <item>2+kk</item>
+        <item>2+1</item>
+        <item>3+kk</item>
+        <item>3+1</item>
+        <item>4+kk</item>
+        <item>4+1</item>
+        <item>5+kk</item>
+        <item>5+1</item>
+        <item>Other</item>
+    </string-array>
+
 </resources>

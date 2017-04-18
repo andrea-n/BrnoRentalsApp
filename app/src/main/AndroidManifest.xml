@@ -22,6 +22,7 @@
             android:name=".OfferActivity"
             android:label="@string/title_activity_offer"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
