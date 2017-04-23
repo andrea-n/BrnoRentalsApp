@@ -29,7 +29,7 @@ public class RentalsAPIClient {
     }
 
     public RentalsService getService() {
-        String apiUrl = getAPIUrl();
+        String apiUrl = Config.API_URL;
         if(apiUrl!=null) {
             if (rentalService == null) {
                 Retrofit retrofit = new Retrofit.Builder()
@@ -41,23 +41,6 @@ public class RentalsAPIClient {
             }
 
             return rentalService;
-        }
-
-        return null;
-    }
-
-    private String getAPIUrl() {
-        Resources resources = mContext.getResources();
-
-        try {
-            InputStream rawResource = resources.openRawResource(R.raw.config);
-            Properties properties = new Properties();
-            properties.load(rawResource);
-            return properties.getProperty("api_url");
-        } catch (Resources.NotFoundException e) {
-            Log.e("RentalsAPIClient", "Unable to find the config file: " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("RentalsAPIClient", "Failed to open config file.");
         }
 
         return null;
