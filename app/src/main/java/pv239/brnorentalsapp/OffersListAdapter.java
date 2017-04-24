@@ -1,7 +1,11 @@
 package pv239.brnorentalsapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,9 +20,11 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		public TextView streetTextView;
 		public TextView priceTextView;
 		public TextView descTextView;
+		private final Context mContext;
 
 		public ViewHolder(LinearLayout layout) {
 			super(layout);
+			mContext = layout.getContext();
 			titleTextView = (TextView) layout.findViewById(R.id.offerCardTitle);
 			streetTextView = (TextView) layout.findViewById(R.id.offerCardStreet);
 			priceTextView = (TextView) layout.findViewById(R.id.offerCardPrice);
@@ -32,9 +38,19 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 	@Override
 	public OffersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
+		final LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
 
-		ViewHolder vh = new ViewHolder(layout);
+		final ViewHolder vh = new ViewHolder(layout);
+
+		vh.itemView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Offer offer = (Offer) getItem(vh.getAdapterPosition());
+				Intent myIntent = new Intent(layout.getContext(), OfferActivity.class);
+				myIntent.putExtra("offer", offer);
+				layout.getContext().startActivity(myIntent);
+			}
+		});
 		return vh;
 	}
 
