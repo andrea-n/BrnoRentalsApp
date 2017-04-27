@@ -8,15 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class OfferActivity extends AppCompatActivity {
-    private TextView title;
+    private TextView priceText;
+    private TextView streetText;
+    private TextView descText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.offerToolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -31,7 +36,14 @@ public class OfferActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         Offer offer = (Offer) myIntent.getSerializableExtra("offer");
 
-        title = (TextView) this.findViewById(R.id.offerTitle);
-        title.setText(offer.title);
+        getSupportActionBar().setTitle(offer.title);
+
+        priceText = (TextView) findViewById(R.id.offerPrice);
+        streetText = (TextView) findViewById(R.id.offerStreet);
+        descText = (TextView) findViewById(R.id.offerDescription);
+
+        priceText.setText(offer.price + " Kč");
+        streetText.setText(offer.street);
+        descText.setText(offer.description);
     }
 }

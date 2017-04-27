@@ -8,11 +8,32 @@
     tools:context="pv239.brnorentalsapp.OfferActivity"
     tools:showIn="@layout/activity_offer">
 
-    <TextView
-        android:id="@+id/offerTitle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/offerStreet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/offerPrice"
+            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:id="@+id/offerDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

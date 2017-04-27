@@ -59,7 +59,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		Offer offer = (Offer) getItem(position);
 		holder.titleTextView.setText(offer.title);
 		holder.streetTextView.setText(offer.street);
-		holder.priceTextView.setText(offer.price);
+		holder.priceTextView.setText(offer.price + " Kč");
 		holder.descTextView.setText(offer.description);
 	}
 

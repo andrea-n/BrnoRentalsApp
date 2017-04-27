@@ -17,22 +17,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
             <TextView
                 android:id="@+id/offerCardTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="20dp"/>
             <TextView
                 android:id="@+id/offerCardStreet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/offerCardPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/offerCardDesc"
                 android:layout_width="match_parent"
