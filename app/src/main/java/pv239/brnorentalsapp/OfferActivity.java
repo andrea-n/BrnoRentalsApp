@@ -6,11 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.squareup.picasso.Picasso;
 
 public class OfferActivity extends AppCompatActivity {
     private TextView priceText;
@@ -37,6 +38,11 @@ public class OfferActivity extends AppCompatActivity {
         Offer offer = (Offer) myIntent.getSerializableExtra("offer");
 
         getSupportActionBar().setTitle(offer.title);
+
+        if (offer.preview_image != null && offer.preview_image != "") {
+            ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
+            Picasso.with(this).load(offer.preview_image).into(bgImg);
+        }
 
         priceText = (TextView) findViewById(R.id.offerPrice);
         streetText = (TextView) findViewById(R.id.offerStreet);
