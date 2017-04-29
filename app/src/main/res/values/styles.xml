@@ -8,6 +8,11 @@
         <item name="android:colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Toolbar title text -->
+    <style name="toolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item>
+    </style>
+
     <style name="buttonStylePrimary">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -16,6 +21,7 @@
         <item name="android:radius">10dp</item>
         <item name="android:textColor">@color/colorLightText</item>
     </style>
+
     <style name="buttonStyleSecondary">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -24,5 +30,9 @@
         <item name="android:radius">10dp</item>
         <item name="android:textColor">@color/colorLightText</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
