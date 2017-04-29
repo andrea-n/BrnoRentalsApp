@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class OfferActivity extends AppCompatActivity {
     private TextView priceText;
     private TextView streetText;
     private TextView descText;
+    private GridView galleryGridView;
+    private GalleryGridAdapter galleryGridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,12 @@ public class OfferActivity extends AppCompatActivity {
         if (offer.preview_image != null && offer.preview_image != "") {
             ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
             Picasso.with(this).load(offer.preview_image).into(bgImg);
+        }
+
+        if (offer.images != null && offer.images.length != 0) {
+            galleryGridView = (GridView) findViewById(R.id.offerGalleryGrid);
+            galleryGridAdapter = new GalleryGridAdapter(this, R.layout.gallery_item, offer.images);
+            galleryGridView.setAdapter(galleryGridAdapter);
         }
 
         priceText = (TextView) findViewById(R.id.offerPrice);

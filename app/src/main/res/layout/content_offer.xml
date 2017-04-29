@@ -11,28 +11,52 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="30dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/offerStreet"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18dp" />
+            android:orientation="vertical"
+            android:padding="30dp">
 
-        <TextView
-            android:id="@+id/offerPrice"
-            android:layout_width="match_parent"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/offerStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/offerDescription"
+            <TextView
+                android:id="@+id/offerPrice"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/offerDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <GridView
+                android:id="@+id/offerGalleryGrid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true"
+                android:gravity="center"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                android:focusable="true"
+                android:clickable="true"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
