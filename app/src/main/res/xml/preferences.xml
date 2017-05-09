@@ -1,0 +1,74 @@
+<PreferenceScreen
+    android:title="Try multi streets choise"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Area" >
+
+        <MultiSelectListPreference
+            android:dialogTitle="Select all your options"
+            android:entries="@array/listAreas"
+            android:entryValues="@array/listAreas"
+            android:defaultValue="@array/listAreas"
+            android:key="multi_choise_streets"
+            android:title="Prepared areas"
+            android:summary="Open list of areas"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Apartment type" >
+
+        <MultiSelectListPreference
+            android:dialogTitle="Select all your options"
+            android:entries="@array/types_array"
+            android:entryValues="@array/types_array"
+            android:defaultValue="@array/types_array"
+            android:key="multi_choise_types"
+            android:title="Type"
+            android:summary="Choise your prefered apartment types"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Advance area settings"
+        android:key="advanced_category">
+
+        <SwitchPreference
+            android:key="pref_advanced"
+            android:summary="Enable / disable advanced options"
+            android:title="Enabled"
+            android:defaultValue="false"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Test" >
+
+        <PreferenceScreen
+            android:title="samples"
+            android:summary="click to view example of preferences">
+            <SwitchPreference
+                android:key="pref_switch"
+                android:title="switchPreference"
+                android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="pref_checkBox"
+                android:title="checkBoxPreference"
+                android:defaultValue="true"/>
+            <EditTextPreference
+                android:key="pref_editText"
+                android:title="editTextPreference"
+                android:summary="text is: @" />
+            <ListPreference
+                android:dialogTitle="Select one"
+                android:entries="@array/listAreas"
+                android:entryValues="@array/listAreas"
+                android:defaultValue="@array/empty_array"
+                android:key="pref_listPreference"
+                android:title="ListPreference"
+                />
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>
