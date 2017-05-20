@@ -3,7 +3,6 @@ package pv239.brnorentalsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,9 +62,15 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		Offer offer = (Offer) getItem(position);
 		holder.titleTextView.setText(offer.title);
+
 		holder.streetTextView.setText(offer.street);
+		if(offer.street == null) holder.streetTextView.getLayoutParams().height = 0;
+
 		holder.priceTextView.setText(offer.price + " Kč");
+		if(offer.price == null) holder.priceTextView.getLayoutParams().height = 0;
+
 		holder.descTextView.setText(offer.description);
+		if(offer.description == null) holder.descTextView.getLayoutParams().height = 0;
 
 		if (offer.preview_image != null && offer.preview_image != "") {
 			Picasso.with(holder.context).load(offer.preview_image).into(holder.imgImageView);
