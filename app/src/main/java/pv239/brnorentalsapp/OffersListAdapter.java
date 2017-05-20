@@ -7,8 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,15 +23,17 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		public TextView streetTextView;
 		public TextView priceTextView;
 		public TextView descTextView;
-		private final Context mContext;
+		public ImageView imgImageView;
+		private final Context context;
 
 		public ViewHolder(LinearLayout layout) {
 			super(layout);
-			mContext = layout.getContext();
+			context = layout.getContext();
 			titleTextView = (TextView) layout.findViewById(R.id.offerCardTitle);
 			streetTextView = (TextView) layout.findViewById(R.id.offerCardStreet);
 			priceTextView = (TextView) layout.findViewById(R.id.offerCardPrice);
 			descTextView = (TextView) layout.findViewById(R.id.offerCardDesc);
+			imgImageView = (ImageView) layout.findViewById(R.id.offerCardImage);
 		}
 	}
 
@@ -61,6 +66,13 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		holder.streetTextView.setText(offer.street);
 		holder.priceTextView.setText(offer.price + " Kč");
 		holder.descTextView.setText(offer.description);
+
+		if (offer.preview_image != null && offer.preview_image != "") {
+			Picasso.with(holder.context).load(offer.preview_image).into(holder.imgImageView);
+		}
+		else {
+			holder.imgImageView.getLayoutParams().height = 0;
+		}
 	}
 
 	@Override
