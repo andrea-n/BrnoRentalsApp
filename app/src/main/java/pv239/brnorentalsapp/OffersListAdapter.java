@@ -22,6 +22,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		public TextView streetTextView;
 		public TextView priceTextView;
 		public TextView descTextView;
+		public TextView likesTextView;
 		public ImageView imgImageView;
 		private final Context context;
 
@@ -32,6 +33,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 			streetTextView = (TextView) layout.findViewById(R.id.offerCardStreet);
 			priceTextView = (TextView) layout.findViewById(R.id.offerCardPrice);
 			descTextView = (TextView) layout.findViewById(R.id.offerCardDesc);
+			likesTextView = (TextView) layout.findViewById(R.id.offerCardLikes);
 			imgImageView = (ImageView) layout.findViewById(R.id.offerCardImage);
 		}
 	}
@@ -62,6 +64,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		Offer offer = (Offer) getItem(position);
 		holder.titleTextView.setText(offer.title);
+		holder.likesTextView.setText(offer.likes.toString());
 
 		holder.streetTextView.setText(offer.street);
 		if(offer.street == null) holder.streetTextView.getLayoutParams().height = 0;
