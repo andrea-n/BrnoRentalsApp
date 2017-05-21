@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 import org.json.JSONObject;
@@ -49,5 +50,9 @@ public class RentalsAPIClient {
     public interface RentalsService {
         @GET("/")
         Call<List<Offer>> offersList();
+
+        // send Base 64 encoded Url to like offer
+        @POST("/like/{id}")
+        Call<String> likeOffer(@Path("id") String encodedUrl);
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,7 +11,9 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="8dp">
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,12 +22,19 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/offerCardImage"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="30dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="true">
+                    <ImageView
+                        android:id="@+id/offerCardImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/offerCardTitle"
                     android:layout_width="match_parent"
@@ -34,37 +44,53 @@
                     android:textColor="@color/colorLightText"
                     android:paddingLeft="20dp"
                     android:paddingRight="80dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:gravity="bottom"
                     android:layout_gravity="bottom"
                     android:background="@color/colorPrimaryDarkTransparent"/>
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/offerCardLikeBtn"
+                        android:src="@drawable/ic_star_full_white"
+                        app:borderWidth="2dp"
+                        app:fabSize="normal"
+                        android:elevation="6dp"
+                        app:backgroundTint="@color/colorAccent"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginBottom="-25dp"
+                        android:layout_marginRight="20dp"/>
             </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:paddingBottom="20dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp">
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="right">
+                    android:layout_marginBottom="3dp">
                     <TextView
                         android:id="@+id/offerCardLikes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
                         android:textColor="@color/colorAccent"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginRight="3dp"/>
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"/>
                     <ImageView
                         android:id="@+id/offerCardStar"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@drawable/ic_star_full"
                         android:layout_gravity="top|right"/>
+
                 </LinearLayout>
 
                 <TextView

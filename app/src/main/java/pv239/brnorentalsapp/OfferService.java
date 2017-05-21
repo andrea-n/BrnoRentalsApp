@@ -28,7 +28,7 @@ public class OfferService {
 			@Override
 			public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
 				List<Offer> list = response.body();
-				mRecycler.setAdapter(new OffersListAdapter(list));
+				mRecycler.setAdapter(new OffersListAdapter(list, mClient));
 			}
 
 			@Override

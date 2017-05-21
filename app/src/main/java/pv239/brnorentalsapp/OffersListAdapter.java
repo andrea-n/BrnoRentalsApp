@@ -2,7 +2,10 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +17,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
+	private RentalsAPIClient mClient;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView titleTextView;
@@ -23,7 +29,9 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		public TextView priceTextView;
 		public TextView descTextView;
 		public TextView likesTextView;
+		public FloatingActionButton likesBtn;
 		public ImageView imgImageView;
+		public ImageView starImageView;
 		private final Context context;
 
 		public ViewHolder(LinearLayout layout) {
@@ -34,12 +42,15 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 			priceTextView = (TextView) layout.findViewById(R.id.offerCardPrice);
 			descTextView = (TextView) layout.findViewById(R.id.offerCardDesc);
 			likesTextView = (TextView) layout.findViewById(R.id.offerCardLikes);
+			likesBtn = (FloatingActionButton) layout.findViewById(R.id.offerCardLikeBtn);
 			imgImageView = (ImageView) layout.findViewById(R.id.offerCardImage);
+			starImageView = (ImageView) layout.findViewById(R.id.offerCardStar);
 		}
 	}
 
-	public OffersListAdapter(List<Offer> myDataset) {
+	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client) {
 		mDataset = myDataset;
+		mClient = client;
 	}
 
 	@Override
@@ -62,9 +73,11 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-		Offer offer = (Offer) getItem(position);
+		final Offer offer = (Offer) getItem(position);
 		holder.titleTextView.setText(offer.title);
 		holder.likesTextView.setText(offer.likes.toString());
+
+		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer.likes, offer.source_url));
 
 		holder.streetTextView.setText(offer.street);
 		if(offer.street == null) holder.streetTextView.getLayoutParams().height = 0;
@@ -81,6 +94,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		else {
 			holder.imgImageView.getLayoutParams().height = 0;
 		}
+
 	}
 
 	@Override
@@ -91,6 +105,30 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	public Offer getItem(int i) {
 		return mDataset.get(i);
 	}
+
+	public class LikesOnclickListener implements View.OnClickListener
+	{
+		TextView likesTextView;
+		Integer likesCount;
+		String offerUrl;
+		public LikesOnclickListener(TextView likesTextView, int likesCount, String offerUrl) {
+			this.likesTextView = likesTextView;
+			this.likesCount = likesCount;
+			this.offerUrl = offerUrl;
+		}
+
+		@Override
+		public void onClick(View v)
+		{
+			String encodedUrl = Base64.encodeToString(offerUrl.getBytes(), Base64.DEFAULT);
+			Log.e("BASE 64 URL", encodedUrl);
+			likesCount++;
+			likesTextView.setText(likesCount.toString());
+			RentalsAPIClient.RentalsService service = mClient.getService();
+
+			service.likeOffer(encodedUrl);
+		}
+	};
 }
 
 
