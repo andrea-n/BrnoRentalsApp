@@ -18,6 +18,7 @@ public class Offer implements Serializable {
 	public String area;
 	public String type;
 	public String street;
+	public Integer likes;
 
 	/*public Offer (String title) {
 		this.title = title;
