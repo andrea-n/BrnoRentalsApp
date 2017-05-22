@@ -2,7 +2,9 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
@@ -79,7 +81,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		holder.titleTextView.setText(offer.title);
 		holder.likesTextView.setText(offer.likes.toString());
 
-		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer.likes, offer.source_url));
+		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer.likes, offer.source_url, holder.context));
 
 		holder.streetTextView.setText(offer.street);
 		if(offer.street == null) holder.streetTextView.getLayoutParams().height = 0;
@@ -95,6 +97,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		}
 		else {
 			holder.imgImageView.getLayoutParams().height = 0;
+			holder.titleTextView.setBackgroundColor(ContextCompat.getColor(holder.context, R.color.colorPrimary));
 		}
 
 	}
@@ -114,10 +117,13 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		Integer likesCount;
 		String offerUrl;
 		Boolean liked = false;
-		public LikesOnclickListener(TextView likesTextView, int likesCount, String offerUrl) {
+		Context context;
+
+		public LikesOnclickListener(TextView likesTextView, int likesCount, String offerUrl, Context context) {
 			this.likesTextView = likesTextView;
 			this.likesCount = likesCount;
 			this.offerUrl = offerUrl;
+			this.context = context;
 		}
 
 		@Override
@@ -126,8 +132,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 			if(!liked) {
 				RentalsAPIClient.RentalsService service = mClient.getService();
 				String encodedUrl = Base64.encodeToString(offerUrl.getBytes(), Base64.CRLF);
-				//likesTextView.setText(encodedUrl);
-
+				final View btn = v;
 
 				Call<Offer> call= service.likeOffer(encodedUrl);
 				Log.e("CALL",call.request().toString());
@@ -137,6 +142,9 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 					public void onResponse(Call<Offer> call, Response<Offer> response) {
 						Offer offer = response.body();
 						likesTextView.setText(offer.likes.toString());
+						liked = true;
+						btn.setEnabled(false);
+						btn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorAccentDisabled)));
 					}
 
 					@Override
@@ -144,8 +152,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 						Log.e("Like offer", t.getMessage());
 					}
 				});
-				liked = true;
-				v.setEnabled(false);
 			}
 		}
 	};
