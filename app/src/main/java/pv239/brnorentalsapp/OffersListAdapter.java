@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
@@ -111,6 +113,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		TextView likesTextView;
 		Integer likesCount;
 		String offerUrl;
+		Boolean liked = false;
 		public LikesOnclickListener(TextView likesTextView, int likesCount, String offerUrl) {
 			this.likesTextView = likesTextView;
 			this.likesCount = likesCount;
@@ -120,13 +123,30 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		@Override
 		public void onClick(View v)
 		{
-			String encodedUrl = Base64.encodeToString(offerUrl.getBytes(), Base64.DEFAULT);
-			Log.e("BASE 64 URL", encodedUrl);
-			likesCount++;
-			likesTextView.setText(likesCount.toString());
-			RentalsAPIClient.RentalsService service = mClient.getService();
+			if(!liked) {
+				RentalsAPIClient.RentalsService service = mClient.getService();
+				String encodedUrl = Base64.encodeToString(offerUrl.getBytes(), Base64.CRLF);
+				//likesTextView.setText(encodedUrl);
 
-			service.likeOffer(encodedUrl);
+
+				Call<Offer> call= service.likeOffer(encodedUrl);
+				Log.e("CALL",call.request().toString());
+
+				call.enqueue(new Callback<Offer>() {
+					@Override
+					public void onResponse(Call<Offer> call, Response<Offer> response) {
+						Offer offer = response.body();
+						likesTextView.setText(offer.likes.toString());
+					}
+
+					@Override
+					public void onFailure(Call<Offer> call, Throwable t) {
+						Log.e("Like offer", t.getMessage());
+					}
+				});
+				liked = true;
+				v.setEnabled(false);
+			}
 		}
 	};
 }

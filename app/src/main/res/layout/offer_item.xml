@@ -83,7 +83,7 @@
                         android:textSize="16dp"
                         android:textColor="@color/colorAccent"
                         android:layout_marginRight="3dp"
-                        android:layout_marginTop="3dp"/>
+                        android:layout_marginTop="2dp"/>
                     <ImageView
                         android:id="@+id/offerCardStar"
                         android:layout_width="25dp"
