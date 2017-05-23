@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+
 public class OfferActivity extends AppCompatActivity {
     private TextView priceText;
     private TextView streetText;
@@ -21,6 +22,7 @@ public class OfferActivity extends AppCompatActivity {
     private TextView infoText;
     private GridView galleryGridView;
     private GalleryGridAdapter galleryGridAdapter;
+    private TextView likesText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +61,12 @@ public class OfferActivity extends AppCompatActivity {
         descText = (TextView) findViewById(R.id.offerDescription);
         contactText = (TextView) findViewById(R.id.offerContacts);
         infoText = (TextView) findViewById(R.id.offerInfo);
+        likesText = (TextView) findViewById(R.id.offerLikes);
 
         priceText.setText(offer.price + " Kč");
         streetText.setText(offer.street);
         descText.setText(offer.description);
+        likesText.setText(offer.likes.toString());
 
         String contacts = "";
         if(offer.email != null) contacts += offer.email + "\n";
