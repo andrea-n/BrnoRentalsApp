@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,6 +17,8 @@ public class OfferActivity extends AppCompatActivity {
     private TextView priceText;
     private TextView streetText;
     private TextView descText;
+    private TextView contactText;
+    private TextView infoText;
     private GridView galleryGridView;
     private GalleryGridAdapter galleryGridAdapter;
 
@@ -56,9 +57,22 @@ public class OfferActivity extends AppCompatActivity {
         priceText = (TextView) findViewById(R.id.offerPrice);
         streetText = (TextView) findViewById(R.id.offerStreet);
         descText = (TextView) findViewById(R.id.offerDescription);
+        contactText = (TextView) findViewById(R.id.offerContacts);
+        infoText = (TextView) findViewById(R.id.offerInfo);
 
         priceText.setText(offer.price + " Kč");
         streetText.setText(offer.street);
         descText.setText(offer.description);
+
+        String contacts = "";
+        if(offer.email != null) contacts += offer.email + "\n";
+        if(offer.phone != null) contacts += offer.phone + "\n";
+        if(offer.fb_user != null) contacts += offer.fb_user + "\n";
+        contactText.setText(contacts);
+
+        String info = "";
+        if(offer.type != null) info += offer.type + "\n";
+        if(offer.area != null) info += offer.area + "\n";
+        infoText.setText(info);
     }
 }
