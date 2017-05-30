@@ -2,12 +2,9 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +15,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
@@ -78,22 +71,22 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		final Offer offer = (Offer) getItem(position);
-		holder.titleTextView.setText(offer.title);
-		holder.likesTextView.setText(offer.likes.toString());
+		holder.titleTextView.setText(offer.getTitle());
+		holder.likesTextView.setText(offer.getLikes().toString());
 
-		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer.likes, offer.source_url, holder.context));
+		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer, holder.context, mClient));
 
-		holder.streetTextView.setText(offer.street);
-		if(offer.street == null) holder.streetTextView.getLayoutParams().height = 0;
+		holder.streetTextView.setText(offer.getStreet());
+		if(offer.getStreet() == null) holder.streetTextView.getLayoutParams().height = 0;
 
-		holder.priceTextView.setText(offer.price + " Kč");
-		if(offer.price == null) holder.priceTextView.getLayoutParams().height = 0;
+		holder.priceTextView.setText(offer.getPrice() + " Kč");
+		if(offer.getPrice() == null) holder.priceTextView.getLayoutParams().height = 0;
 
-		holder.descTextView.setText(offer.description);
-		if(offer.description == null) holder.descTextView.getLayoutParams().height = 0;
+		holder.descTextView.setText(offer.getDescription());
+		if(offer.getDescription() == null) holder.descTextView.getLayoutParams().height = 0;
 
-		if (offer.preview_image != null && offer.preview_image != "") {
-			Picasso.with(holder.context).load(offer.preview_image).into(holder.imgImageView);
+		if (offer.getPreview_image() != null && offer.getPreview_image() != "") {
+			Picasso.with(holder.context).load(offer.getPreview_image()).into(holder.imgImageView);
 		}
 		else {
 			holder.imgImageView.getLayoutParams().height = 0;
@@ -111,50 +104,12 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		return mDataset.get(i);
 	}
 
-	public class LikesOnclickListener implements View.OnClickListener
-	{
-		TextView likesTextView;
-		Integer likesCount;
-		String offerUrl;
-		Boolean liked = false;
-		Context context;
-
-		public LikesOnclickListener(TextView likesTextView, int likesCount, String offerUrl, Context context) {
-			this.likesTextView = likesTextView;
-			this.likesCount = likesCount;
-			this.offerUrl = offerUrl;
-			this.context = context;
-		}
-
-		@Override
-		public void onClick(View v)
-		{
-			if(!liked) {
-				RentalsAPIClient.RentalsService service = mClient.getService();
-				String encodedUrl = Base64.encodeToString(offerUrl.getBytes(), Base64.CRLF);
-				final View btn = v;
-
-				Call<Offer> call= service.likeOffer(encodedUrl);
-				Log.e("CALL",call.request().toString());
-
-				call.enqueue(new Callback<Offer>() {
-					@Override
-					public void onResponse(Call<Offer> call, Response<Offer> response) {
-						Offer offer = response.body();
-						likesTextView.setText(offer.likes.toString());
-						liked = true;
-						btn.setEnabled(false);
-						btn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorAccentDisabled)));
-					}
-
-					@Override
-					public void onFailure(Call<Offer> call, Throwable t) {
-						Log.e("Like offer", t.getMessage());
-					}
-				});
-			}
-		}
-	};
+	public void changeData(List<Offer> newDataset) {
+		mDataset.clear();
+		mDataset.addAll(newDataset);
+		notifyDataSetChanged();
+	}
 }
+
 
 
