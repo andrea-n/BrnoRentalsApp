@@ -21,6 +21,7 @@
         <activity
             android:name=".OfferActivity"
             android:label="@string/title_activity_offer"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 
