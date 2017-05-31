@@ -13,6 +13,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     OfferService offerService;
+    ArrayList<String> likedOffersUrls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
+
+        likedOffersUrls = new ArrayList<>();
 
         RecyclerView recycler = (RecyclerView) findViewById(R.id.offersRecycler);
 

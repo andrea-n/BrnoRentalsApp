@@ -2,9 +2,11 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
@@ -75,6 +78,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		holder.likesTextView.setText(offer.getLikes().toString());
 
 		holder.likesBtn.setOnClickListener(new LikesOnclickListener(holder.likesTextView, offer, holder.context, mClient));
+		ArrayList<String> likedOffers = OfferService.getLikedOffers();
+		for (String sourceUrl : likedOffers){
+			if (sourceUrl.contains(offer.getSource_url())){
+				holder.likesBtn.setEnabled(false);
+				holder.likesBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.context, R.color.colorAccentDisabled)));
+			}
+		}
+
 
 		holder.streetTextView.setText(offer.getStreet());
 		if(offer.getStreet() == null) holder.streetTextView.getLayoutParams().height = 0;

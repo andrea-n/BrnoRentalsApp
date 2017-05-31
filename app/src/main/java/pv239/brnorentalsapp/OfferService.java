@@ -3,6 +3,7 @@ package pv239.brnorentalsapp;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -18,6 +19,7 @@ public class OfferService {
 	private RentalsAPIClient.RentalsService service;
 	private OffersListAdapter adapter;
 	private List<Offer> list;
+	private static ArrayList<String> likedOffersUrls;
 
 	public OfferService(RecyclerView recycler, RentalsAPIClient client) {
 		mRecycler = recycler;
@@ -58,5 +60,19 @@ public class OfferService {
 				}
 			});
 		}
+	}
+
+	public static ArrayList<String> getLikedOffers() {
+		if (likedOffersUrls == null) {
+			likedOffersUrls = new ArrayList<>();
+		}
+		return likedOffersUrls;
+	}
+
+	public static void addLikedOffer(String sourceUrl) {
+		if (likedOffersUrls == null) {
+			likedOffersUrls = new ArrayList<>();
+		}
+		likedOffersUrls.add(sourceUrl);
 	}
 }

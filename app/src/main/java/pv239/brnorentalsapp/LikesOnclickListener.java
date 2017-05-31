@@ -45,6 +45,7 @@ public class LikesOnclickListener implements View.OnClickListener
 					likesTextView.setText(nOffer.getLikes().toString());
 					offer.setLikes(nOffer.getLikes());
 					liked = true;
+					OfferService.addLikedOffer(offer.getSource_url());
 					btn.setEnabled(false);
 					btn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorAccentDisabled)));
 				}

@@ -1,17 +1,22 @@
 package pv239.brnorentalsapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class OfferActivity extends AppCompatActivity {
@@ -70,6 +75,14 @@ public class OfferActivity extends AppCompatActivity {
         descText.setText(offer.getDescription());
         likesText.setText(offer.getLikes().toString());
         likeBtn.setOnClickListener(new LikesOnclickListener(likesText, offer, this, new RentalsAPIClient(this)));
+
+        ArrayList<String> likedOffers = OfferService.getLikedOffers();
+        for (String sourceUrl : likedOffers){
+            if (sourceUrl.contains(offer.getSource_url())){
+                likeBtn.setEnabled(false);
+                likeBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccentDisabled)));
+            }
+        }
 
         String contacts = "";
         if(offer.getEmail() != null) contacts += offer.getEmail() + "\n";
