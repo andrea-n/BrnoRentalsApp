@@ -29,6 +29,7 @@ public class OfferActivity extends AppCompatActivity {
     private GalleryGridAdapter galleryGridAdapter;
     private TextView likesText;
     private FloatingActionButton likeBtn;
+    private FloatingActionButton contactBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +37,11 @@ public class OfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.offerToolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent myIntent = getIntent();
-        Offer offer = (Offer) myIntent.getSerializableExtra("offer");
+        final Offer offer = (Offer) myIntent.getSerializableExtra("offer");
 
         getSupportActionBar().setTitle(offer.getTitle());
 
@@ -69,6 +63,7 @@ public class OfferActivity extends AppCompatActivity {
         infoText = (TextView) findViewById(R.id.offerInfo);
         likesText = (TextView) findViewById(R.id.offerLikes);
         likeBtn = (FloatingActionButton) findViewById(R.id.fabLike);
+        contactBtn = (FloatingActionButton) findViewById(R.id.fabContact);
 
         priceText.setText(offer.getPrice() + " Kč");
         streetText.setText(offer.getStreet());
@@ -82,6 +77,21 @@ public class OfferActivity extends AppCompatActivity {
                 likeBtn.setEnabled(false);
                 likeBtn.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccentDisabled)));
             }
+        }
+
+        if(offer.getEmail() == null) {
+            contactBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { offer.getEmail() });
+                    startActivity(Intent.createChooser(intent, ""));
+                }
+            });
+        }
+        else {
+            contactBtn.hide();
         }
 
         String contacts = "";
