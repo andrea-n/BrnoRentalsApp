@@ -8,10 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
+    OfferService offerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +24,16 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         RentalsAPIClient client = new RentalsAPIClient(this);
-        OfferService offerService = new OfferService(recycler, client);
+        offerService = new OfferService(recycler, client);
         offerService.loadOffers();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(offerService != null) {
+            offerService.updateOffers();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
