@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
     OfferService offerService;
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         RentalsAPIClient client = new RentalsAPIClient(this);
-        offerService = new OfferService(recycler, client);
+        ProgressBar loader = (ProgressBar) findViewById(R.id.offersLoader);
+        offerService = new OfferService(recycler, client, loader);
         offerService.loadOffers();
     }
 

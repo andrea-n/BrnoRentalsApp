@@ -2,6 +2,8 @@ package pv239.brnorentalsapp;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,12 @@ public class OfferService {
 	private OffersListAdapter adapter;
 	private List<Offer> list;
 	private static ArrayList<String> likedOffersUrls;
+	private ProgressBar mLoader;
 
-	public OfferService(RecyclerView recycler, RentalsAPIClient client) {
+	public OfferService(RecyclerView recycler, RentalsAPIClient client, ProgressBar loader) {
 		mRecycler = recycler;
 		mClient = client;
+		mLoader = loader;
 	}
 
 	public void loadOffers() {
@@ -33,8 +37,12 @@ public class OfferService {
 			@Override
 			public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
 				list = response.body();
-				adapter = new OffersListAdapter(list, mClient);
-				mRecycler.setAdapter(adapter);
+				if(list != null) {
+					adapter = new OffersListAdapter(list, mClient);
+					mRecycler.setAdapter(adapter);
+					mLoader.setVisibility(View.GONE);
+				}
+				else loadOffers();
 			}
 
 			@Override
@@ -51,7 +59,10 @@ public class OfferService {
 				@Override
 				public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
 					list = response.body();
-					adapter.changeData(list);
+					if(list != null) {
+						adapter.changeData(list);
+					}
+					else loadOffers();
 				}
 
 				@Override
