@@ -27,7 +27,7 @@ public class GalleryImageActivity extends AppCompatActivity {
         String[] imgUrls = getIntent().getStringArrayExtra("imgUrls");
 
         galleryPager = (ViewPager) findViewById(R.id.galleryFullPager);
-        GalleryAdapter adapter = new GalleryAdapter(this, imgUrls, ImageView.ScaleType.FIT_CENTER);
+        GalleryAdapter adapter = new GalleryAdapter(this, imgUrls, ImageView.ScaleType.FIT_CENTER, false);
         galleryPager.setAdapter(adapter);
     }
 

@@ -18,11 +18,13 @@ public class GalleryAdapter extends PagerAdapter {
     private Context context;
     private String[] imagesUrls;
     private ImageView.ScaleType scaleType;
+    private Boolean openOnClick;
 
-    GalleryAdapter(Context context, String[] imagesUrls, ImageView.ScaleType scaleType){
+    GalleryAdapter(Context context, String[] imagesUrls, ImageView.ScaleType scaleType, Boolean openOnClick){
         this.context = context;
         this.imagesUrls = imagesUrls;
         this.scaleType = scaleType;
+        this.openOnClick = openOnClick;
     }
 
     @Override
@@ -45,14 +47,16 @@ public class GalleryAdapter extends PagerAdapter {
         String imgUrl = imagesUrls[position];
         Picasso.with(context).load(imgUrl).into(imageView);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GalleryImageActivity.class);
-                intent.putExtra("imgUrls", imagesUrls);
-                context.startActivity(intent);
-            }
-        });
+        if(openOnClick) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, GalleryImageActivity.class);
+                    intent.putExtra("imgUrls", imagesUrls);
+                    context.startActivity(intent);
+                }
+            });
+        }
 
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
