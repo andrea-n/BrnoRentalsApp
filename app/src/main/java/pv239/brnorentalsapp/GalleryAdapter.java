@@ -1,6 +1,7 @@
 package pv239.brnorentalsapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -41,6 +42,17 @@ public class GalleryAdapter extends PagerAdapter {
 
         String imgUrl = imagesUrls[position];
         Picasso.with(context).load(imgUrl).into(imageView);
+
+        final int pos = position;
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GalleryImageActivity.class);
+                intent.putExtra("imgUrl", imagesUrls[pos]);
+                context.startActivity(intent);
+            }
+        });
 
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
