@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/BrnoRentalsApp.iml" filepath="$PROJECT_DIR$/BrnoRentalsApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/new.iml" filepath="$PROJECT_DIR$/new.iml" />
+      <module fileurl="file://$PROJECT_DIR$/settings-activity.iml" filepath="$PROJECT_DIR$/settings-activity.iml" />
     </modules>
   </component>
 </project>

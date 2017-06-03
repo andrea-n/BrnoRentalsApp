@@ -94,7 +94,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		holder.streetTextView.setText(offer.getStreet());
 		if(offer.getStreet() == null) holder.streetTextView.getLayoutParams().height = 0;
 
-		holder.priceTextView.setText(offer.getPrice() + " Kč");
+		holder.priceTextView.setText(offer.getPrice());
 		if(offer.getPrice() == null) holder.priceTextView.getLayoutParams().height = 0;
 
 		holder.descTextView.setText(offer.getDescription());
@@ -102,6 +102,10 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 		if (offer.getPreview_image() != null && offer.getPreview_image() != "") {
 			Picasso.with(holder.context).load(offer.getPreview_image()).into(holder.imgImageView);
+		}
+		else if(offer.getImages() != null && offer.getImages().length != 0) {
+			String[] images = offer.getImages();
+			Picasso.with(holder.context).load(images[0]).into(holder.imgImageView);
 		}
 		else {
 			holder.imgImageView.getLayoutParams().height = 0;
