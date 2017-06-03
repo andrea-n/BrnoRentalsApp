@@ -45,9 +45,13 @@ public class OfferActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(offer.getTitle());
 
+        ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
         if (offer.getPreview_image() != null && offer.getPreview_image() != "") {
-            ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
             Picasso.with(this).load(offer.getPreview_image()).into(bgImg);
+        }
+        else if(offer.getImages() != null && offer.getImages().length != 0) {
+            String[] images = offer.getImages();
+            Picasso.with(this).load(images[0]).into(bgImg);
         }
 
         if (offer.getImages() != null && offer.getImages().length != 0) {
@@ -65,7 +69,7 @@ public class OfferActivity extends AppCompatActivity {
         likeBtn = (FloatingActionButton) findViewById(R.id.fabLike);
         contactBtn = (FloatingActionButton) findViewById(R.id.fabContact);
 
-        priceText.setText(offer.getPrice() + " Kč");
+        priceText.setText(offer.getPrice());
         streetText.setText(offer.getStreet());
         descText.setText(offer.getDescription());
         likesText.setText(offer.getLikes().toString());
