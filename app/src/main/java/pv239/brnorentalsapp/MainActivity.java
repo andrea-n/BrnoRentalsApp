@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
+    OfferService offerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,17 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         RentalsAPIClient client = new RentalsAPIClient(this);
-        OfferService offerService = new OfferService(recycler, client);
+        ProgressBar loader = (ProgressBar) findViewById(R.id.offersLoader);
+        offerService = new OfferService(recycler, client, loader);
         offerService.loadOffers();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(offerService != null) {
+            offerService.updateOffers();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

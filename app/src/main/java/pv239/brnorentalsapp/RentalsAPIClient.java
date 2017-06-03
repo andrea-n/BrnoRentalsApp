@@ -7,8 +7,12 @@ import android.util.Log;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import org.json.JSONObject;
 
@@ -49,5 +53,9 @@ public class RentalsAPIClient {
     public interface RentalsService {
         @GET("/")
         Call<List<Offer>> offersList();
+
+        // send Base 64 encoded Url to like offer
+        @POST("/like/")
+        Call<Offer> likeOffer(@Query("id") String encodedUrl);
     }
 }
