@@ -3,4 +3,35 @@
     <string name="settings">Settings</string>
     <string name="title_activity_offer">Rentals offer</string>
     <string name="action_settings">Settings</string>
+    <string name="settings_street">Street</string>
+    <string name="settings_price">Price</string>
+    <string name="settings_type">Type</string>
+
+
+    <string name="pref_saved_streets">saved_streets</string>
+    <string name="pref_area_filter">pref_area_filter</string>
+    <string name="pref_multi_choice_streets">multi_choice_streets</string>
+    <string name="pref_type_filter">pref_type_filter</string>
+    <string name="pref_multi_choice_types">multi_choice_types</string>
+    <string name="pref_advanced_category">advanced_category</string>
+    <string name="pref_advanced">pref_advanced</string>
+    <string name="pref_add_streets">pref_add_streets</string>
+    <string name="pref_delete_streets">pref_delete_streets</string>
+
+    <string-array name="types_array">
+        <item>1+kk</item>
+        <item>1+1</item>
+        <item>2+kk</item>
+        <item>2+1</item>
+        <item>3+kk</item>
+        <item>3+1</item>
+        <item>4+kk</item>
+        <item>4+1</item>
+        <item>5+kk</item>
+        <item>5+1</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="empty_array">
+    </string-array>
+
 </resources>

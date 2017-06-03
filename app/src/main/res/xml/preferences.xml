@@ -1,0 +1,61 @@
+<PreferenceScreen
+    android:title="Try multi streets choise"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Area" >
+
+        <SwitchPreference
+            android:key="@string/pref_area_filter"
+            android:summaryOn="Filter is on"
+            android:summaryOff="Filter is off"
+            android:title="Filter by area"
+            android:defaultValue="false"/>
+
+        <MultiSelectListPreference
+            android:dependency="@string/pref_area_filter"
+            android:dialogTitle="Select all your options"
+            android:entries="@array/listAreas"
+            android:entryValues="@array/listAreas"
+            android:defaultValue="@array/listAreas"
+            android:key="@string/pref_multi_choice_streets"
+            android:title="Prepared areas"
+            android:summary="Open list of areas"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Apartment type" >
+
+        <SwitchPreference
+            android:key="@string/pref_type_filter"
+            android:summaryOn="Filter is on"
+            android:summaryOff="Filter is off"
+            android:title="Filter by type"
+            android:defaultValue="false"/>
+
+        <MultiSelectListPreference
+            android:dependency="@string/pref_type_filter"
+            android:dialogTitle="Select all your options"
+            android:entries="@array/types_array"
+            android:entryValues="@array/types_array"
+            android:defaultValue="@array/types_array"
+            android:key="@string/pref_multi_choice_types"
+            android:title="Type"
+            android:summary="Choice your prefered apartment types"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Advance area settings"
+        android:key="@string/pref_advanced_category">
+
+        <SwitchPreference
+            android:key="@string/pref_advanced"
+            android:summary="Enable / disable advanced options"
+            android:title="Add streets to Area"
+            android:defaultValue="false"/>
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
