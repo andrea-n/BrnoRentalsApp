@@ -78,17 +78,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
 
-            <GridView
-                android:id="@+id/offerGalleryGrid"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/galleryPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true"
-                android:gravity="center"
-                android:numColumns="2"
-                android:stretchMode="columnWidth"
-                android:focusable="true"
-                android:clickable="true"/>
-
+                android:layout_height="300dp" />
         </FrameLayout>
 
     </LinearLayout>

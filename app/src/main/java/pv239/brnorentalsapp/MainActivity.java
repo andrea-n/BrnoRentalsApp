@@ -7,10 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
     OfferService offerService;
+    private ProgressBar loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         RentalsAPIClient client = new RentalsAPIClient(this);
-        ProgressBar loader = (ProgressBar) findViewById(R.id.offersLoader);
+        loader = (ProgressBar) findViewById(R.id.offersLoader);
         offerService = new OfferService(recycler, client, loader);
         offerService.loadOffers();
     }
@@ -42,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reloadAction:
+                if(offerService != null) {
+                    offerService.updateOffers();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }

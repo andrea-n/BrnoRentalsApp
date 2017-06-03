@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,8 +26,7 @@ public class OfferActivity extends AppCompatActivity {
     private TextView descText;
     private TextView contactText;
     private TextView infoText;
-    private GridView galleryGridView;
-    private GalleryGridAdapter galleryGridAdapter;
+    private ViewPager galleryPager;
     private TextView likesText;
     private FloatingActionButton likeBtn;
     private FloatingActionButton contactBtn;
@@ -45,15 +45,19 @@ public class OfferActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(offer.getTitle());
 
+        ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
         if (offer.getPreview_image() != null && offer.getPreview_image() != "") {
-            ImageView bgImg = (ImageView) findViewById(R.id.offerBgImage);
             Picasso.with(this).load(offer.getPreview_image()).into(bgImg);
+        }
+        else if(offer.getImages() != null && offer.getImages().length != 0) {
+            String[] images = offer.getImages();
+            Picasso.with(this).load(images[0]).into(bgImg);
         }
 
         if (offer.getImages() != null && offer.getImages().length != 0) {
-            galleryGridView = (GridView) findViewById(R.id.offerGalleryGrid);
-            galleryGridAdapter = new GalleryGridAdapter(this, R.layout.gallery_item, offer.getImages());
-            galleryGridView.setAdapter(galleryGridAdapter);
+            galleryPager = (ViewPager) findViewById(R.id.galleryPager);
+            GalleryAdapter adapter = new GalleryAdapter(this, offer.getImages(), ImageView.ScaleType.CENTER_CROP);
+            galleryPager.setAdapter(adapter);
         }
 
         priceText = (TextView) findViewById(R.id.offerPrice);
@@ -65,7 +69,7 @@ public class OfferActivity extends AppCompatActivity {
         likeBtn = (FloatingActionButton) findViewById(R.id.fabLike);
         contactBtn = (FloatingActionButton) findViewById(R.id.fabContact);
 
-        priceText.setText(offer.getPrice() + " Kč");
+        priceText.setText(offer.getPrice());
         streetText.setText(offer.getStreet());
         descText.setText(offer.getDescription());
         likesText.setText(offer.getLikes().toString());
