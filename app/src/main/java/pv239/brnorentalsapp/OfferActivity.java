@@ -56,7 +56,7 @@ public class OfferActivity extends AppCompatActivity {
 
         if (offer.getImages() != null && offer.getImages().length != 0) {
             galleryPager = (ViewPager) findViewById(R.id.galleryPager);
-            GalleryAdapter adapter = new GalleryAdapter(this, offer.getImages());
+            GalleryAdapter adapter = new GalleryAdapter(this, offer.getImages(), ImageView.ScaleType.CENTER_CROP);
             galleryPager.setAdapter(adapter);
         }
 

@@ -17,10 +17,12 @@ import com.squareup.picasso.Picasso;
 public class GalleryAdapter extends PagerAdapter {
     private Context context;
     private String[] imagesUrls;
+    private ImageView.ScaleType scaleType;
 
-    GalleryAdapter(Context context, String[] imagesUrls){
+    GalleryAdapter(Context context, String[] imagesUrls, ImageView.ScaleType scaleType){
         this.context = context;
         this.imagesUrls = imagesUrls;
+        this.scaleType = scaleType;
     }
 
     @Override
@@ -38,18 +40,16 @@ public class GalleryAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         int padding = 0;
         imageView.setPadding(padding, padding, padding, padding);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(scaleType);
 
         String imgUrl = imagesUrls[position];
         Picasso.with(context).load(imgUrl).into(imageView);
-
-        final int pos = position;
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GalleryImageActivity.class);
-                intent.putExtra("imgUrl", imagesUrls[pos]);
+                intent.putExtra("imgUrls", imagesUrls);
                 context.startActivity(intent);
             }
         });

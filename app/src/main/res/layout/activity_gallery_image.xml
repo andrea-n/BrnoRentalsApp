@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="@color/colorPrimaryDark"
     tools:context="pv239.brnorentalsapp.GalleryImageActivity">
 
-    <ImageView
-        android:id="@+id/galleryImageFull"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/galleryFullPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
