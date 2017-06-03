@@ -3,20 +3,15 @@ package pv239.brnorentalsapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.preference.SwitchPreference;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -74,17 +69,17 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         if (key == null)
             return;
 
-        if (key.equals("pref_advanced")){
+        if (key.equals(getString(R.string.pref_advanced))){
             if (((SwitchPreference) p).isChecked()){
-                PreferenceCategory category = (PreferenceCategory)findPreference("advanced_category");
+                PreferenceCategory category = (PreferenceCategory)findPreference(getString(R.string.pref_advanced_category));
 
                 EditTextPreference addStreet = new EditTextPreference(this);
-                addStreet.setKey("pref_add_streets");
+                addStreet.setKey(getString(R.string.pref_add_streets));
                 addStreet.setTitle("Add streets");
                 addStreet.setDialogMessage("write new streets separated by comma (in csv format:\"street1,street2,...\")");
 
                 EditTextPreference deleteStreet = new EditTextPreference(this);
-                deleteStreet.setKey("pref_delete_streets");
+                deleteStreet.setKey(getString(R.string.pref_delete_streets));
                 deleteStreet.setTitle("Delete streets");
                 deleteStreet.setDialogMessage("write streets to delete separated by comma (in csv format:\"street1,street2,...\")");
 
@@ -94,11 +89,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 
             } else if (!((SwitchPreference) p).isChecked()){
-                PreferenceCategory category = (PreferenceCategory)findPreference("advanced_category");
-                EditTextPreference addStreet = (EditTextPreference) findPreference("pref_add_streets");
+                PreferenceCategory category = (PreferenceCategory)findPreference(getString(R.string.pref_advanced_category));
+                EditTextPreference addStreet = (EditTextPreference) findPreference(getString(R.string.pref_add_streets));
                 if (addStreet != null)
                     addStreet.setText("");
-                EditTextPreference deleteStreet = (EditTextPreference) findPreference("pref_delete_streets");
+                EditTextPreference deleteStreet = (EditTextPreference) findPreference(getString(R.string.pref_delete_streets));
                 if (deleteStreet != null)
                     deleteStreet.setText("");
 
@@ -108,18 +103,18 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     category.removePreference(deleteStreet);
             }
 
-        } else if (key.equals("pref_add_streets")) {
-            EditTextPreference addStreet = (EditTextPreference) findPreference("pref_add_streets");
+        } else if (key.equals(getString(R.string.pref_add_streets))) {
+            EditTextPreference addStreet = (EditTextPreference) findPreference(getString(R.string.pref_add_streets));
             String data = addStreet.getText();
             if (data.equals(""))
                 return;
 
             //zpracovani dat
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-            Set<String> streets = sharedPref.getStringSet("saved_streets", new HashSet<String>());
+            Set<String> streets = sharedPref.getStringSet(getString(R.string.pref_saved_streets), new HashSet<String>());
             SharedPreferences.Editor edit = sharedPref.edit();
             addStreets(streets, data.split(","));
-            edit.putStringSet("saved_streets", streets);
+            edit.putStringSet(getString(R.string.pref_saved_streets), streets);
             edit.apply();
 
 
@@ -127,16 +122,16 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 Toast.makeText(this, "Added streets: " + streets, Toast.LENGTH_SHORT).show();
 
             addStreet.setText("");
-        } else if (key.equals("pref_delete_streets")) {
-            EditTextPreference deleteStreet = (EditTextPreference) findPreference("pref_delete_streets");
+        } else if (key.equals(getString(R.string.pref_delete_streets))) {
+            EditTextPreference deleteStreet = (EditTextPreference) findPreference(getString(R.string.pref_delete_streets));
             String data = deleteStreet.getText();
 
             //zpracovani dat
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-            Set<String> streets = sharedPref.getStringSet("saved_streets", new HashSet<String>());
+            Set<String> streets = sharedPref.getStringSet(getString(R.string.pref_saved_streets), new HashSet<String>());
             SharedPreferences.Editor edit = sharedPref.edit();
             deleteStreets(streets, data.split(","));
-            edit.putStringSet("saved_streets", streets);
+            edit.putStringSet(getString(R.string.pref_saved_streets), streets);
             edit.apply();
 
             if (!data.equals(""))

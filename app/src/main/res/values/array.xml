@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="listAreas">
-        <item>Komárov</item>
-        <item>Královo Pole</item>
-        <item>Ponava</item>
-        <item>Žabovřesky</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
+        <item>Brno-střed</item>
+        <item>Brno-sever</item>
+        <item>Brno-Královo Pole</item>
+        <item>Brno-Líšeň</item>
+        <item>Brno-Bystrc</item>
+        <item>Brno-Židenice</item>
+        <item>Brno-Žabovřesky</item>
+        <item>Brno-Řečkovice a Mokrá Hora</item>
+        <item>Brno-Bohunice</item>
+        <item>Brno-Vinohrady</item>
+        <item>Brno-Starý Lískovec</item>
+        <item>Brno-Kohoutovice</item>
+        <item>Brno-Nový Lískovec</item>
+        <item>Brno-jih</item>
+        <item>Brno-Slatina</item>
+        <item>Brno-Černovice</item>
+        <item>Brno-Komín</item>
+        <item>Brno-Medlánky</item>
+        <item>Brno-Tuřany</item>
+        <item>Brno-Maloměřice a Obřany</item>
+        <item>Brno-Jundrov</item>
+        <item>Brno-Chrlice</item>
+        <item>Brno-Žebětín</item>
+        <item>Brno-Bosonohy</item>
+        <item>Brno-Ivanovice</item>
+        <item>Brno-Jehnice</item>
+        <item>Brno-Kníničky</item>
+        <item>Brno-Útěchov</item>
+        <item>Brno-Ořešín</item>
     </string-array>
 </resources>
