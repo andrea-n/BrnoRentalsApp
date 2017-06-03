@@ -41,6 +41,7 @@ public class OfferService {
 					adapter = new OffersListAdapter(list, mClient);
 					mRecycler.setAdapter(adapter);
 					mLoader.setVisibility(View.GONE);
+					mRecycler.setVisibility(View.VISIBLE);
 				}
 				else loadOffers();
 			}
@@ -53,6 +54,8 @@ public class OfferService {
 	}
 
 	public void updateOffers() {
+		mLoader.setVisibility(View.VISIBLE);
+		mRecycler.setVisibility(View.GONE);
 		if(adapter != null) {
 			Call<List<Offer>> call = service.offersList();
 			call.enqueue(new Callback<List<Offer>>() {
@@ -61,6 +64,8 @@ public class OfferService {
 					list = response.body();
 					if(list != null) {
 						adapter.changeData(list);
+						mLoader.setVisibility(View.GONE);
+						mRecycler.setVisibility(View.VISIBLE);
 					}
 					else loadOffers();
 				}
