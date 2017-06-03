@@ -1,6 +1,7 @@
 package pv239.brnorentalsapp;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -61,7 +62,9 @@ public class OfferService {
 			call.enqueue(new Callback<List<Offer>>() {
 				@Override
 				public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
-					list = response.body();
+					Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(mContext), mContext);
+					list = myFilter.filter(response.body());
+
 					if(list != null) {
 						adapter.changeData(list);
 					}
