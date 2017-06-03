@@ -1,5 +1,6 @@
 package pv239.brnorentalsapp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -12,6 +13,11 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.preference.SwitchPreference;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
@@ -26,8 +32,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        PreferenceManager.setDefaultValues(SettingsActivity.this, R.xml.preferences,
-                false);
+        /*PreferenceManager.setDefaultValues(SettingsActivity.this, R.xml.preferences,
+                false);*/
         initSummary(getPreferenceScreen());
     }
 
@@ -90,9 +96,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             } else if (!((SwitchPreference) p).isChecked()){
                 PreferenceCategory category = (PreferenceCategory)findPreference("advanced_category");
                 EditTextPreference addStreet = (EditTextPreference) findPreference("pref_add_streets");
-                addStreet.setText("");
+                if (addStreet != null)
+                    addStreet.setText("");
                 EditTextPreference deleteStreet = (EditTextPreference) findPreference("pref_delete_streets");
-                deleteStreet.setText("");
+                if (deleteStreet != null)
+                    deleteStreet.setText("");
 
                 if (addStreet != null)
                     category.removePreference(addStreet);
@@ -103,21 +111,36 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         } else if (key.equals("pref_add_streets")) {
             EditTextPreference addStreet = (EditTextPreference) findPreference("pref_add_streets");
             String data = addStreet.getText();
+            if (data.equals(""))
+                return;
+
+            //zpracovani dat
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            Set<String> streets = sharedPref.getStringSet("saved_streets", new HashSet<String>());
+            SharedPreferences.Editor edit = sharedPref.edit();
+            addStreets(streets, data.split(","));
+            edit.putStringSet("saved_streets", streets);
+            edit.apply();
+
 
             if (!data.equals(""))
-                Toast.makeText(this, "Add streets: " + data, Toast.LENGTH_SHORT).show();
-            //TODO zpracovani dat
-            PreferenceManager manager = getPreferenceManager();
+                Toast.makeText(this, "Added streets: " + streets, Toast.LENGTH_SHORT).show();
 
             addStreet.setText("");
         } else if (key.equals("pref_delete_streets")) {
             EditTextPreference deleteStreet = (EditTextPreference) findPreference("pref_delete_streets");
             String data = deleteStreet.getText();
 
+            //zpracovani dat
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            Set<String> streets = sharedPref.getStringSet("saved_streets", new HashSet<String>());
+            SharedPreferences.Editor edit = sharedPref.edit();
+            deleteStreets(streets, data.split(","));
+            edit.putStringSet("saved_streets", streets);
+            edit.apply();
+
             if (!data.equals(""))
-                Toast.makeText(this, "Delete streets: " + data, Toast.LENGTH_SHORT).show();
-            //TODO zpracovani dat
-            PreferenceManager manager = getPreferenceManager();
+                Toast.makeText(this, "Added treets: " + streets, Toast.LENGTH_SHORT).show();
 
             deleteStreet.setText("");
         }
@@ -141,6 +164,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             EditTextPreference editTextPref = (EditTextPreference) p;
             p.setSummary(editTextPref.getText());
         }*/
+    }
+
+    private void addStreets(Set<String> streetSet, String[] streets){
+
+        for (String street : streets){
+            streetSet.add(street);
+        }
+
+    }
+
+    private void deleteStreets(Set<String> streetSet, String[] streets){
+
+        for (String street : streets){
+            streetSet.remove(street);
+        }
+
     }
 
 }

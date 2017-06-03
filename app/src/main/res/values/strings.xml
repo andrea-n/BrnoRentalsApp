@@ -6,6 +6,7 @@
     <string name="settings_street">Street</string>
     <string name="settings_price">Price</string>
     <string name="settings_type">Type</string>
+    <string name="saved_streets">saved_streets</string>
     <string-array name="types_array">
         <item>1+kk</item>
         <item>1+1</item>

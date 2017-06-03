@@ -5,12 +5,20 @@
     <PreferenceCategory
         android:title="Area" >
 
+        <SwitchPreference
+            android:key="pref_area_filter"
+            android:summaryOn="Filter is on"
+            android:summaryOff="Filter is off"
+            android:title="Filter by area"
+            android:defaultValue="false"/>
+
         <MultiSelectListPreference
+            android:dependency="pref_area_filter"
             android:dialogTitle="Select all your options"
             android:entries="@array/listAreas"
             android:entryValues="@array/listAreas"
             android:defaultValue="@array/listAreas"
-            android:key="multi_choise_streets"
+            android:key="multi_choice_streets"
             android:title="Prepared areas"
             android:summary="Open list of areas"/>
     </PreferenceCategory>
@@ -18,14 +26,22 @@
     <PreferenceCategory
         android:title="Apartment type" >
 
+        <SwitchPreference
+            android:key="pref_type_filter"
+            android:summaryOn="Filter is on"
+            android:summaryOff="Filter is off"
+            android:title="Filter by type"
+            android:defaultValue="false"/>
+
         <MultiSelectListPreference
+            android:dependency="pref_type_filter"
             android:dialogTitle="Select all your options"
             android:entries="@array/types_array"
             android:entryValues="@array/types_array"
             android:defaultValue="@array/types_array"
-            android:key="multi_choise_types"
+            android:key="multi_choice_types"
             android:title="Type"
-            android:summary="Choise your prefered apartment types"/>
+            android:summary="Choice your prefered apartment types"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -35,40 +51,11 @@
         <SwitchPreference
             android:key="pref_advanced"
             android:summary="Enable / disable advanced options"
-            android:title="Enabled"
+            android:title="Add streets to Area"
             android:defaultValue="false"/>
 
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Test" >
-
-        <PreferenceScreen
-            android:title="samples"
-            android:summary="click to view example of preferences">
-            <SwitchPreference
-                android:key="pref_switch"
-                android:title="switchPreference"
-                android:defaultValue="true"/>
-            <CheckBoxPreference
-                android:key="pref_checkBox"
-                android:title="checkBoxPreference"
-                android:defaultValue="true"/>
-            <EditTextPreference
-                android:key="pref_editText"
-                android:title="editTextPreference"
-                android:summary="text is: @" />
-            <ListPreference
-                android:dialogTitle="Select one"
-                android:entries="@array/listAreas"
-                android:entryValues="@array/listAreas"
-                android:defaultValue="@array/empty_array"
-                android:key="pref_listPreference"
-                android:title="ListPreference"
-                />
-
-        </PreferenceScreen>
-    </PreferenceCategory>
 
 </PreferenceScreen>
