@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +26,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         RecyclerView recycler = (RecyclerView) findViewById(R.id.offersRecycler);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         RentalsAPIClient client = new RentalsAPIClient(this);
         ProgressBar loader = (ProgressBar) findViewById(R.id.offersLoader);
-        offerService = new OfferService(recycler, client, loader);
+        offerService = new OfferService(recycler, client, loader, this);
         offerService.loadOffers();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         if(offerService != null) {
             offerService.updateOffers();
         }

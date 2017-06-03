@@ -9,7 +9,7 @@
             android:key="@string/pref_area_filter"
             android:summaryOn="Filter is on"
             android:summaryOff="Filter is off"
-            android:title="Filter by area"
+            android:title="Filter by town area"
             android:defaultValue="false"/>
 
         <MultiSelectListPreference
@@ -18,8 +18,8 @@
             android:entries="@array/listAreas"
             android:entryValues="@array/listAreas"
             android:defaultValue="@array/listAreas"
-            android:key="@string/pref_multi_choice_streets"
-            android:title="Prepared areas"
+            android:key="@string/pref_multi_choice_areas"
+            android:title="Prepared town areas"
             android:summary="Open list of areas"/>
     </PreferenceCategory>
 
@@ -30,7 +30,7 @@
             android:key="@string/pref_type_filter"
             android:summaryOn="Filter is on"
             android:summaryOff="Filter is off"
-            android:title="Filter by type"
+            android:title="Filter by apartment type"
             android:defaultValue="false"/>
 
         <MultiSelectListPreference

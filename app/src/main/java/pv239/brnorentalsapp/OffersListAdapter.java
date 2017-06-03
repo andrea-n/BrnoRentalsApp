@@ -3,6 +3,7 @@ package pv239.brnorentalsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -48,8 +49,11 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		}
 	}
 
-	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client) {
-		mDataset = myDataset;
+	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client, Context context) {
+
+    	Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(context), context);
+
+		mDataset = myFilter.filter(myDataset);
 		mClient = client;
 	}
 

@@ -10,7 +10,7 @@
 
     <string name="pref_saved_streets">saved_streets</string>
     <string name="pref_area_filter">pref_area_filter</string>
-    <string name="pref_multi_choice_streets">multi_choice_streets</string>
+    <string name="pref_multi_choice_areas">multi_choice_areas</string>
     <string name="pref_type_filter">pref_type_filter</string>
     <string name="pref_multi_choice_types">multi_choice_types</string>
     <string name="pref_advanced_category">advanced_category</string>
