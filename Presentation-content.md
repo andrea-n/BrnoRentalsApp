@@ -12,7 +12,13 @@ Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
 - kontaktní tlačítko na email/fb messenger, pokud nabídka obsahuje email/jméno uživatele fb
 
 #2 Postup a popis implementované funkcionality
+- Server periodicky načítá nové nabidky a poskytuje je pomocí API mobilní aplikaci
+- Data se načítají z Facebookových skupin
+
 
 #3 Technické problémy a jejich řešení
+- Práce s FB graph API, autentizace OAuth
+- Získání struktorovaných dat z nestrukturovaného textu.
+
 
 #4-6 Obrázky z aplikace
