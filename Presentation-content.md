@@ -2,6 +2,7 @@
 
 #1 Tým a zadání projektu
 Brno Rentals App
+
 Andrea Navrátilová, Robin Knaur, Jakub Juřena
 
 Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
