@@ -20,6 +20,7 @@ public class Config {
     public static final String PREF_AREA_FILTER = "pref_area_filter";
     public static final String PREF_MULTI_CHOICE_AREAS = "pref_multi_choice_areas";
     public static final String PREF_TYPE_FILTER = "pref_type_filter";
+    public static final String PREF_SHOW_NULL_TYPE = "pref_show_null_type";
     public static final String PREF_MULTI_CHOICE_TYPES = "pref_multi_choice_types";
     public static final String PREF_MIN_FLAT_AREA_FILTER = "pref_min_flat_area_filter";
     public static final String PREF_MAX_FLAT_AREA_FILTER = "pref_max_flat_area_filter";

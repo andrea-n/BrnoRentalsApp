@@ -40,6 +40,13 @@
             android:key="@string/pref_multi_choice_types"
             android:title="Type"
             android:summary="Choice your prefered apartment types"/>
+        <!--
+        <SwitchPreference
+            android:dependency="@string/pref_type_filter"
+            android:key="@string/pref_show_null_type"
+            android:title="Show offers without set type"
+            android:defaultValue="false"/>
+        -->
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -76,7 +83,7 @@
         <SwitchPreference
             android:key="@string/pref_show_null_area"
             android:title="Show offers without set area"
-            android:defaultValue="true"/>
+            android:defaultValue="false"/>
     </PreferenceCategory>
 
 

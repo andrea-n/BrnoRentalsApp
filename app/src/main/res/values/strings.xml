@@ -14,13 +14,13 @@
     <string name="pref_area_filter">pref_area_filter</string>
     <string name="pref_multi_choice_areas">pref_multi_choice_areas</string>
     <string name="pref_type_filter">pref_type_filter</string>
+    <string name="pref_show_null_type">pref_show_null_type</string>
     <string name="pref_multi_choice_types">pref_multi_choice_types</string>
     <string name="pref_min_flat_area_filter">pref_min_flat_area_filter</string>
     <string name="pref_max_flat_area_filter">pref_max_flat_area_filter</string>
     <string name="pref_min_area">pref_min_area</string>
     <string name="pref_max_area">pref_max_area</string>
     <string name="pref_show_null_area">pref_show_null_area</string>
-
     <!--
         PREFERENCES TEXTS
     -->
