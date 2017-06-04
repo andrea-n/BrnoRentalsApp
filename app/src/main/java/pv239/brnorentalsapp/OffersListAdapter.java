@@ -51,7 +51,7 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client, Context context) {
 
-    	Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(context), context);
+    	Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(context));
 
 		mDataset = myFilter.filter(myDataset);
 		mClient = client;

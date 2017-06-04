@@ -2,6 +2,7 @@ package pv239.brnorentalsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         RentalsAPIClient client = new RentalsAPIClient(this);
         loader = (ProgressBar) findViewById(R.id.offersLoader);
         offerService = new OfferService(recycler, client, loader, this);
+
         offerService.loadOffers();
+
+
     }
 
     @Override

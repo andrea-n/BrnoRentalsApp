@@ -8,30 +8,27 @@
     <string name="settings_price">Price</string>
     <string name="settings_type">Type</string>
 
-
-    <string name="pref_saved_streets">saved_streets</string>
+    <!--
+        PREFERENCES NAMES
+    -->
     <string name="pref_area_filter">pref_area_filter</string>
-    <string name="pref_multi_choice_areas">multi_choice_areas</string>
+    <string name="pref_multi_choice_areas">pref_multi_choice_areas</string>
     <string name="pref_type_filter">pref_type_filter</string>
-    <string name="pref_multi_choice_types">multi_choice_types</string>
-    <string name="pref_advanced_category">advanced_category</string>
-    <string name="pref_advanced">pref_advanced</string>
-    <string name="pref_add_streets">pref_add_streets</string>
-    <string name="pref_delete_streets">pref_delete_streets</string>
+    <string name="pref_multi_choice_types">pref_multi_choice_types</string>
+    <string name="pref_min_flat_area_filter">pref_min_flat_area_filter</string>
+    <string name="pref_max_flat_area_filter">pref_max_flat_area_filter</string>
+    <string name="pref_min_area">pref_min_area</string>
+    <string name="pref_max_area">pref_max_area</string>
+    <string name="pref_show_null_area">pref_show_null_area</string>
 
-    <string-array name="types_array">
-        <item>1+kk</item>
-        <item>1+1</item>
-        <item>2+kk</item>
-        <item>2+1</item>
-        <item>3+kk</item>
-        <item>3+1</item>
-        <item>4+kk</item>
-        <item>4+1</item>
-        <item>5+kk</item>
-        <item>5+1</item>
-        <item>Other</item>
-    </string-array>
+    <!--
+        PREFERENCES TEXTS
+    -->
+    <string name="pref_min_area_limit_dialog">Set minimum area</string>
+    <string name="pref_max_area_limit_dialog">Set maximum area</string>
+    <string name="pref_min_area_summ">Minimum area summary</string>
+    <string name="pref_max_area_summ">Maximum area summary</string>
+
     <string-array name="empty_array">
     </string-array>
 

@@ -2,7 +2,9 @@ package pv239.brnorentalsapp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,22 +14,23 @@ import java.util.Set;
 public class Filter {
 
     private SharedPreferences mSharedPref;
-    private Context mContext;
 
     private boolean mAreaFilter = false;
     private boolean mTypeFilter = false;
-    private boolean mAdvanceFilter = false;
+    private boolean mShowNullArea = false;
+    private boolean mMinAreaFilter = false;
+    private boolean mMaxAreaFilter = false;
 
     private Set<String> mAreaSet;
     private Set<String> mTypeSet;
-    private Set<String> mStreetsSet;
+    private Integer mMinArea;
+    private Integer mMaxArea;
 
-    public Filter(SharedPreferences sharedPref, Context context){
-        if (sharedPref == null || context == null){
+    public Filter(SharedPreferences sharedPref){
+        if (sharedPref == null){
             throw new IllegalArgumentException("sharedPref cannot be null");
         }
         mSharedPref = sharedPref;
-        mContext = context;
     }
 
     public List<Offer> filter(List<Offer> offers){
@@ -46,39 +49,44 @@ public class Filter {
 
     private void updateFilter(){
 
-        mAreaFilter = mSharedPref.getBoolean(mContext.getString(R.string.pref_area_filter),false);
-        mTypeFilter = mSharedPref.getBoolean(mContext.getString(R.string.pref_type_filter),false);
-        mAdvanceFilter = mSharedPref.getBoolean(mContext.getString(R.string.pref_advanced),false);
+        mAreaFilter = mSharedPref.getBoolean(Config.PREF_AREA_FILTER,false);
+        mTypeFilter = mSharedPref.getBoolean(Config.PREF_TYPE_FILTER,false);
+        mShowNullArea = mSharedPref.getBoolean(Config.PREF_SHOW_NULL_AREA,true);
+        mMinAreaFilter = mSharedPref.getBoolean(Config.PREF_MIN_FLAT_AREA_FILTER,false);
+        mMaxAreaFilter = mSharedPref.getBoolean(Config.PREF_MAX_FLAT_AREA_FILTER,false);
 
         if (mAreaFilter){
-            mAreaSet = mSharedPref.getStringSet(mContext.getString(R.string.pref_multi_choice_areas),new HashSet<String>());
+            mAreaSet = mSharedPref.getStringSet(Config.PREF_MULTI_CHOICE_AREAS,new HashSet<String>());
         } else {
             mAreaSet = null;
         }
 
         if (mTypeFilter){
-            mTypeSet = mSharedPref.getStringSet(mContext.getString(R.string.pref_multi_choice_types),new HashSet<String>());
+            mTypeSet = mSharedPref.getStringSet(Config.PREF_MULTI_CHOICE_TYPES,new HashSet<String>());
         } else {
             mTypeSet = null;
         }
 
-        if (mAdvanceFilter){
-            mStreetsSet = mSharedPref.getStringSet(mContext.getString(R.string.pref_saved_streets),new HashSet<String>());
+        if (mMinAreaFilter){
+            mMinArea = mSharedPref.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA);
         } else {
-            mStreetsSet = null;
+            mMinArea = Config.MIN_APARTMENT_AREA;
         }
+
+        if (mMaxAreaFilter){
+            mMaxArea = mSharedPref.getInt(Config.PREF_MAX_AREA,Config.MAX_APARTMENT_AREA);
+        } else {
+            mMaxArea = Config.MAX_APARTMENT_AREA;
+        }
+
     }
 
     private boolean canShowOffer(Offer offer){
 
-        //TODO AREA FILTER
-        /*if ( mAreaFilter ){
-            if (offer.getStreet() == null){
+        if ( mAreaFilter ){
+            if (! isInSelectedTownAreas(offer))
                 return false;
-            }
-            if (!mAreaSet.contains(offer.getStreet()))
-                return false;
-        }*/
+        }
 
         if ( mTypeFilter ){
             if (offer.getType() == null){
@@ -88,15 +96,172 @@ public class Filter {
                 return false;
         }
 
-        if ( mAdvanceFilter ){
-            if (offer.getStreet() == null)
+        if ( mMinAreaFilter ){
+            if ( offer.getArea() == null && !mShowNullArea)
                 return false;
-            if (!mStreetsSet.contains(offer.getStreet()))
+            else if ( offer.getArea() != null && Integer.valueOf(getAreaString(offer.getArea())) < mMinArea)
+                return false;
+        }
+
+        if ( mMaxAreaFilter ){
+            if ( offer.getArea() == null && !mShowNullArea)
+                return false;
+            else if ( offer.getArea() != null && Integer.valueOf(getAreaString(offer.getArea())) > mMaxArea)
                 return false;
         }
 
         return true;
     }
 
+
+
+    private boolean isInSelectedTownAreas(Offer offer){
+        for (String area : mAreaSet){
+            for (String keyWord : getKeyWordForArea(area)){
+                if (offer.getTitle() != null && offer.getTitle().toLowerCase().contains(keyWord))
+                    return true;
+                if (offer.getTitle() != null && offer.getDescription().toLowerCase().contains(keyWord))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private List<String> getKeyWordForArea(String area){
+        List<String> keyWords = new ArrayList<>();
+        switch (area){
+            case "Brno-střed":
+                keyWords.add("stred");
+                keyWords.add("střed");
+                break;
+            case "Brno-sever":
+                keyWords.add("sever");
+                break;
+            case "Brno-Královo Pole":
+                keyWords.add("královo pole");
+                keyWords.add("krpole");
+                keyWords.add("krpoly");
+                keyWords.add("králov");
+                keyWords.add("kralov");
+                break;
+            case "Brno-Líšeň":
+                keyWords.add("líšeň");
+                keyWords.add("lisen");
+                keyWords.add("líšni");
+                keyWords.add("lisni");
+                break;
+            case "Brno-Bystrc":
+                keyWords.add("bystrc");
+                break;
+            case "Brno-Židenice":
+                keyWords.add("židenic");
+                keyWords.add("zidenic");
+                break;
+            case "Brno-Žabovřesky":
+                keyWords.add("žabovřesk");
+                keyWords.add("zabovresk");
+                break;
+            case "Brno-Řečkovice a Mokrá Hora":
+                keyWords.add("mokrá hora");
+                keyWords.add("řečkovic");
+                keyWords.add("mokra hora");
+                keyWords.add("reckovic");
+                keyWords.add("mokré hoře");
+                keyWords.add("mokre hore");
+                break;
+            case "Brno-Bohunice":
+                keyWords.add("bohunic");
+                break;
+            case "Brno-Vinohrady":
+                keyWords.add("vinohrad");
+                break;
+            case "Brno-Starý Lískovec":
+                keyWords.add("starý lískovec");
+                keyWords.add("starém lískovc");
+                keyWords.add("stary liskovec");
+                keyWords.add("starem liskovc");
+                break;
+            case "Brno-Kohoutovice":
+                keyWords.add("kohoutovic");
+                break;
+            case "Brno-Nový Lískovec":
+                keyWords.add("nový lískovec");
+                keyWords.add("novém lískovc");
+                keyWords.add("novy liskovec");
+                keyWords.add("novem liskovc");
+                break;
+            case "Brno-jih":
+                keyWords.add("jih");
+                break;
+            case "Brno-Slatina":
+                keyWords.add("slatin");
+                break;
+            case "Brno-Černovice":
+                keyWords.add("černovic");
+                keyWords.add("cernovic");
+                break;
+            case "Brno-Komín":
+                keyWords.add("komín");
+                keyWords.add("komin");
+                break;
+            case "Brno-Medlánky":
+                keyWords.add("medlánk");
+                keyWords.add("medlank");
+                break;
+            case "Brno-Tuřany":
+                keyWords.add("tuřan");
+                keyWords.add("turan");
+                break;
+            case "Brno-Maloměřice a Obřany":
+                keyWords.add("obřan");
+                keyWords.add("maloměřic");
+                keyWords.add("obran");
+                keyWords.add("malomeric");
+                break;
+            case "Brno-Jundrov":
+                keyWords.add("jundrov");
+                break;
+            case "Brno-Chrlice":
+                keyWords.add("chrlic");
+                break;
+            case "Brno-Žebětín":
+                keyWords.add("žebětín");
+                keyWords.add("zebetin");
+                break;
+            case "Brno-Bosonohy":
+                keyWords.add("bosonoh");
+                break;
+            case "Brno-Ivanovice":
+                keyWords.add("ivanovic");
+                break;
+            case "Brno-Jehnice":
+                keyWords.add("jehnic");
+                break;
+            case "Brno-Kníničky":
+                keyWords.add("kníničk");
+                keyWords.add("kninick");
+                break;
+            case "Brno-Útěchov":
+                keyWords.add("útěchov");
+                keyWords.add("utechov");
+                break;
+            case "Brno-Ořešín":
+                keyWords.add("ořešín");
+                keyWords.add("oresin");
+                break;
+        }
+        return keyWords;
+    }
+
+    private String getAreaString(String s){
+        int i = 0;
+        String newS = "";
+        while (Character.isDigit(s.charAt(i))){
+            Character c = s.charAt(i);
+            newS += c;
+            i++;
+        }
+        return newS;
+    }
 
 }

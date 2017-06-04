@@ -8,6 +8,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.widget.Toast;
 
@@ -60,6 +61,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             for (int i = 0; i < pGrp.getPreferenceCount(); i++) {
                 initSummary(pGrp.getPreference(i));
             }
+            /*SharedPreferences.Editor manager = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            manager.putBoolean(getString(R.string.pref_advanced), false);
+            manager.apply();*/
+
         } else {
             updatePrefSummary(p,p.getKey());
         }
@@ -70,7 +75,38 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         if (key == null)
             return;
 
-        if (key.equals(getString(R.string.pref_advanced))){
+        if (key.equals(Config.PREF_SHOW_NULL_AREA)){
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            if (sharedPreferences.getBoolean(getString(R.string.pref_min_flat_area_filter),false)
+                    || sharedPreferences.getBoolean(getString(R.string.pref_max_flat_area_filter),false)){
+                findPreference(getString(R.string.pref_show_null_area)).setEnabled(true);
+            } else {
+                findPreference(getString(R.string.pref_show_null_area)).setEnabled(false);
+            }
+        } else if (key.equals(getString(R.string.pref_min_flat_area_filter))
+                || key.equals(getString(R.string.pref_max_flat_area_filter))){
+            updatePrefSummary(findPreference(getString(R.string.pref_show_null_area)),getString(R.string.pref_show_null_area));
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            if (key.equals(getString(R.string.pref_min_area))){
+                NumberPickerPreference pref = (NumberPickerPreference)findPreference(getString(R.string.pref_max_area));
+                int max = sharedPreferences.getInt(getString(R.string.pref_max_area),Config.MAX_APARTMENT_AREA);
+                int min = sharedPreferences.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA);
+                if ( max < min){
+
+                }
+                pref.setMinValue(sharedPreferences.getInt(getString(R.string.pref_min_area),Config.MIN_APARTMENT_AREA));
+            } else if (key.equals(getString(R.string.pref_max_area))){
+                NumberPickerPreference pref = (NumberPickerPreference)findPreference(getString(R.string.pref_min_area));
+                pref.setMaxValue(sharedPreferences.getInt(getString(R.string.pref_max_area),Config.MAX_APARTMENT_AREA));
+            }
+
+        }
+
+
+
+
+        /*if (key.equals(getString(R.string.pref_advanced))){
             if (((SwitchPreference) p).isChecked()){
                 PreferenceCategory category = (PreferenceCategory)findPreference(getString(R.string.pref_advanced_category));
 
@@ -139,7 +175,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 Toast.makeText(this, "Added treets: " + streets, Toast.LENGTH_SHORT).show();
 
             deleteStreet.setText("");
-        }
+        }*/
 
 
         /*if (p instanceof ListPreference) {
@@ -161,7 +197,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             p.setSummary(editTextPref.getText());
         }*/
     }
-
+/*
     private void addStreets(Set<String> streetSet, String[] streets){
 
         for (String street : streets){
@@ -176,7 +212,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             streetSet.remove(street);
         }
 
-    }
+    }*/
 
 }
 

@@ -65,7 +65,7 @@ public class OfferService {
 			call.enqueue(new Callback<List<Offer>>() {
 				@Override
 				public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
-					Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(mContext), mContext);
+					Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(mContext));
 					list = myFilter.filter(response.body());
 
 					if(list != null) {
