@@ -113,8 +113,11 @@ public class MainActivity extends AppCompatActivity {
         long[] pattern = {500,500,500,500};
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notification = builder.setContentIntent(contentIntent)
-                .setSmallIcon(icon).setTicker(appname).setWhen(0)
-                .setAutoCancel(true).setContentTitle(appname)
+                .setSmallIcon(icon)
+                .setTicker(appname)
+                .setWhen(0)
+                .setAutoCancel(true)
+                .setContentTitle(appname)
                 .setLights(Color.BLUE, 500, 500)
                 .setVibrate(pattern)
                 .setContentText(message)
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         myFilter.filter(list);
                         if (!list.isEmpty()) {
                             if (list.size() > 0 && !list.get(0).getSource_url().equals(sharedPreference.getString(Config.PREF_LAST_URL, ""))){
-                                generateNotification(mContext, "We have new offer for you");
+                                generateNotification(mContext, "We have new offer for you:" + list.get(0).getTitle());
                                 SharedPreferences.Editor editor = sharedPreference.edit().putString(Config.PREF_LAST_URL, list.get(0).getSource_url());
                                 editor.apply();
                             }
