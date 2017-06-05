@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:preference="http://schemas.android.com/apk/res-auto">
 
+    <!--
+        NOTIFICATION SETTINGS
+    -->
     <PreferenceCategory
         android:title="@string/pref_notification_category_title">
 
@@ -14,6 +17,9 @@
     </PreferenceCategory>
 
 
+    <!--
+        FILTER ENABLE/DISABLE
+    -->
     <PreferenceCategory
         android:title="@string/pref_filters_category_title">
 
@@ -22,16 +28,22 @@
             android:key="@string/pref_filters"
             android:defaultValue="false"/>
 
+        <!--
+            FILTERS SETTINGS
+        -->
         <PreferenceScreen
             android:dependency="@string/pref_filters"
             android:title="@string/pref_filters_category_title">
 
+            <!--
+                TOWN AREA SETTINGS
+            -->
             <PreferenceCategory
-                android:title="@string/pref_area" >
+                android:title="@string/pref_town_area_category_title" >
 
                 <SwitchPreference
                     android:key="@string/pref_area_filter"
-                    android:title="@string/pref_town_area_switch"
+                    android:title="@string/pref_town_area_switch_title"
                     android:defaultValue="false"/>
 
                 <MultiSelectListPreference
@@ -41,11 +53,14 @@
                     android:entryValues="@array/listAreas"
                     android:defaultValue="@array/listAreasInit"
                     android:key="@string/pref_multi_choice_areas"
-                    android:title="@string/pref_town_area_title"
-                    android:summary="@string/pref_town_area_semmary"/>
+                    android:title="@string/pref_town_area_multiselect_title"
+                    android:summary="@string/pref_town_area_multiselect_summary"/>
 
             </PreferenceCategory>
 
+            <!--
+                APARTMENT TYPE SETTINGS
+            -->
             <PreferenceCategory
                 android:title="@string/pref_type_category_title" >
 
@@ -65,6 +80,9 @@
                     android:summary="@string/pref_type_multiselect_summary"/>
             </PreferenceCategory>
 
+            <!--
+                APARTMENT AREA SETTINGS
+            -->
             <PreferenceCategory
                 android:title="@string/pref_area_category_title" >
 

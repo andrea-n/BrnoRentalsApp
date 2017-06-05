@@ -23,6 +23,7 @@
     <string name="pref_max_area">pref_max_area</string>
     <string name="pref_show_null_area">pref_show_null_area</string>
     <string name="pref_notifications">pref_notifications</string>
+
     <!--
         PREFERENCES TEXTS
     -->
@@ -32,10 +33,10 @@
     <string name="pref_filters_category_title">Filters</string>
     <string name="pref_filters_switch_title">Apply filters</string>
 
-    <string name="pref_area">Area</string>
-    <string name="pref_town_area_switch">Town area filter</string>
-    <string name="pref_town_area_title">Prepared town areas</string>
-    <string name="pref_town_area_semmary">Open list of areas</string>
+    <string name="pref_town_area_category_title">Area</string>
+    <string name="pref_town_area_switch_title">Town area filter</string>
+    <string name="pref_town_area_multiselect_title">Prepared town areas</string>
+    <string name="pref_town_area_multiselect_summary">Open list of areas</string>
 
     <string name="pref_type_category_title">Apartment type</string>
     <string name="pref_type_switch_title">Apartment type filter</string>

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             mTimer.cancel();
     }
 
+    @Override
     protected void onPause(){
         super.onPause();
 
@@ -160,11 +161,11 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                         Filter myFilter = new Filter(sharedPreference);
-                        myFilter.filter(list);
-                        if (!list.isEmpty()) {
-                            if (list.size() > 0 && !list.get(0).getSource_url().equals(sharedPreference.getString(Config.PREF_LAST_URL, ""))){
-                                generateNotification(mContext, "We have new offer for you:" + list.get(0).getTitle());
-                                SharedPreferences.Editor editor = sharedPreference.edit().putString(Config.PREF_LAST_URL, list.get(0).getSource_url());
+                        List<Offer> filteredList = myFilter.filter(list);
+                        if (!filteredList.isEmpty()) {
+                            if (filteredList.size() > 0 && !filteredList.get(0).getSource_url().equals(sharedPreference.getString(Config.PREF_LAST_URL, ""))){
+                                generateNotification(mContext, "We have new offer for you: " + filteredList.get(0).getTitle());
+                                SharedPreferences.Editor editor = sharedPreference.edit().putString(Config.PREF_LAST_URL, filteredList.get(0).getSource_url());
                                 editor.apply();
                             }
                         }

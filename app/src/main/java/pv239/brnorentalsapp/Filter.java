@@ -15,6 +15,7 @@ public class Filter {
 
     private SharedPreferences mSharedPref;
 
+    private boolean mFilter = false;
     private boolean mAreaFilter = false;
     private boolean mTypeFilter = false;
     private boolean mShowNullArea = false;
@@ -49,6 +50,7 @@ public class Filter {
 
     private void updateFilter(){
 
+        mFilter = mSharedPref.getBoolean(Config.PREF_FILTERS,false);
         mAreaFilter = mSharedPref.getBoolean(Config.PREF_AREA_FILTER,false);
         mTypeFilter = mSharedPref.getBoolean(Config.PREF_TYPE_FILTER,false);
         mShowNullArea = mSharedPref.getBoolean(Config.PREF_SHOW_NULL_AREA,true);
@@ -82,6 +84,9 @@ public class Filter {
     }
 
     private boolean canShowOffer(Offer offer){
+
+        if (!mFilter)
+            return true;
 
         if ( mAreaFilter ){
             if (! isInSelectedTownAreas(offer))
