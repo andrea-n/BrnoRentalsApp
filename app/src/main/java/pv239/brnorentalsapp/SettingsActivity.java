@@ -7,6 +7,8 @@ import android.preference.PreferenceGroup;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import java.util.Timer;
+
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -17,6 +19,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         addPreferencesFromResource(R.xml.preferences);
 
         initSummary(getPreferenceScreen());
+
+
     }
 
     @Override
@@ -25,6 +29,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         // Set up a listener whenever a key changes
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
+
+        // cancel notification "listener"
+        Timer myTimer = Notifications.getTimer();
+        if (myTimer != null)
+            myTimer.cancel();
     }
 
     @Override
@@ -33,6 +42,15 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         // Unregister the listener whenever a key changes
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREF_NOTIFICATIONS, false)){
+            // start notification "listener"
+            Timer myTimer = Notifications.getTimer();
+            myTimer = new Timer();
+            NotificationTask myTask = new NotificationTask(this);
+            myTimer.schedule(myTask, 5000, 5000);
+            Notifications.setTimer(myTimer);
+        }
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,

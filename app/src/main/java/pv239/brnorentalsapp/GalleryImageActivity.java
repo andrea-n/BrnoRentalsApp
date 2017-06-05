@@ -1,5 +1,6 @@
 package pv239.brnorentalsapp;
 
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.Timer;
 
 public class GalleryImageActivity extends AppCompatActivity {
 
@@ -29,6 +32,30 @@ public class GalleryImageActivity extends AppCompatActivity {
         galleryPager = (ViewPager) findViewById(R.id.galleryFullPager);
         GalleryAdapter adapter = new GalleryAdapter(this, imgUrls, ImageView.ScaleType.FIT_CENTER, false);
         galleryPager.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // cancel notification "listener"
+        Timer myTimer = Notifications.getTimer();
+        if (myTimer != null)
+            myTimer.cancel();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREF_NOTIFICATIONS, false)){
+            // start notification "listener"
+            Timer myTimer = Notifications.getTimer();
+            myTimer = new Timer();
+            NotificationTask myTask = new NotificationTask(this);
+            myTimer.schedule(myTask, 5000, 5000);
+            Notifications.setTimer(myTimer);
+        }
     }
 
 }

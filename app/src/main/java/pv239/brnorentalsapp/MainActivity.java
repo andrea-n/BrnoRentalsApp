@@ -34,7 +34,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     OfferService offerService;
     private ProgressBar loader;
-    private Timer mTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // cancel notification "listener"
-        if (mTimer != null)
-            mTimer.cancel();
+        Timer myTimer = Notifications.getTimer();
+        if (myTimer != null)
+            myTimer.cancel();
     }
 
     @Override
@@ -72,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREF_NOTIFICATIONS, false)){
             // start notification "listener"
-            mTimer = new Timer();
+            Timer myTimer = Notifications.getTimer();
+            myTimer = new Timer();
             NotificationTask myTask = new NotificationTask(this);
-            mTimer.schedule(myTask, 5000, 5000);
+            myTimer.schedule(myTask, 5000, 5000);
+            Notifications.setTimer(myTimer);
         }
     }
 
@@ -98,85 +100,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
 
-        }
-    }
-
-    public void generateNotification(Context context, String message) {
-
-        int icon = R.mipmap.ic_notification_white;
-        long when = System.currentTimeMillis();
-        String appname = context.getResources().getString(R.string.app_name);
-        NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        Notification notification;
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, MainActivity.class), 0);
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                context);
-
-        long[] pattern = {500,500,500,500};
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        notification = builder.setContentIntent(contentIntent)
-                .setSmallIcon(icon)
-                .setTicker(appname)
-                .setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(appname)
-                .setLights(Color.BLUE, 500, 500)
-                .setVibrate(pattern)
-                .setContentText(message)
-                .setSound(alarmSound)
-                .build();
-
-        notificationManager.notify((int) when, notification);
-
-
-    }
-
-    class NotificationTask extends TimerTask {
-        RentalsAPIClient.RentalsService mService;
-        RentalsAPIClient mClient;
-        Context mContext;
-
-
-        public NotificationTask(Context context) {
-            mContext = context;
-            mClient = new RentalsAPIClient(mContext);
-        }
-
-        public void run() {
-
-            mService = mClient.getService();
-            Call<List<Offer>> call = mService.offersList();
-            call.enqueue(new Callback<List<Offer>>() {
-                @Override
-                public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
-                    SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(mContext);
-                    if (!sharedPreference.getString(Config.PREF_LAST_URL,"").equals("")) {
-                        List<Offer> list = response.body();
-                        if (list == null){
-                            return;
-                        }
-                        Filter myFilter = new Filter(sharedPreference);
-                        List<Offer> filteredList = myFilter.filter(list);
-                        if (!filteredList.isEmpty()) {
-                            if (filteredList.size() > 0 && !filteredList.get(0).getSource_url().equals(sharedPreference.getString(Config.PREF_LAST_URL, ""))){
-                                generateNotification(mContext, "We have new offer for you: " + filteredList.get(0).getTitle());
-                                SharedPreferences.Editor editor = sharedPreference.edit().putString(Config.PREF_LAST_URL, filteredList.get(0).getSource_url());
-                                editor.apply();
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<Offer>> call, Throwable t) {
-                    Log.e("OfferService", t.getMessage());
-                }
-            });
         }
     }
 

@@ -3,6 +3,7 @@ package pv239.brnorentalsapp;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 
 public class OfferActivity extends AppCompatActivity {
@@ -129,6 +131,30 @@ public class OfferActivity extends AppCompatActivity {
         }
         else {
             infoText.getLayoutParams().height = 0;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // cancel notification "listener"
+        Timer myTimer = Notifications.getTimer();
+        if (myTimer != null)
+            myTimer.cancel();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREF_NOTIFICATIONS, false)){
+            // start notification "listener"
+            Timer myTimer = Notifications.getTimer();
+            myTimer = new Timer();
+            NotificationTask myTask = new NotificationTask(this);
+            myTimer.schedule(myTask, 5000, 5000);
+            Notifications.setTimer(myTimer);
         }
     }
 }
