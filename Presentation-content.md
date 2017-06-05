@@ -7,7 +7,7 @@ Brno Rentals App
 Andrea Navrátilová, Robin Knaur, Jakub Juřena
 
 Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
-- možnost zobrazení pouze vyhovujích nabídek podle nastavení filtru (dispozice a velikost bytu, ulice)
+- možnost zobrazení pouze vyhovujích nabídek podle nastavení filtru (dispozice a velikost bytu, městská část)
 - přidání hvězdičky/like nabídce
 - včetně galerie obrázků, pokud je nabídka obsahuje
 - kontaktní tlačítko na email/fb messenger, pokud nabídka obsahuje email/jméno uživatele fb
@@ -25,6 +25,8 @@ Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
 - Server periodicky načítá nové nabídky a poskytuje je pomocí API mobilní aplikaci
 - Data se načítají z Facebookových skupin
 
+- Nabídky se filtrují podle dat přijatých od serveru
+- Filtry jsou uložené v SharedPreferences
 
 #3 Technické problémy a jejich řešení
 
@@ -36,5 +38,6 @@ Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
 - Práce s FB graph API, autentizace OAuth
 - Získání struktorovaných dat z nestrukturovaného textu.
 
+- Vytvoření vlastního Number Pickeru pro preference (filtry pro velikost bytu)
 
 #4-6 Obrázky z aplikace
