@@ -17,7 +17,7 @@ Aplikace pro rychlé zobrazování a filtrování pronájmů v Brně.
 - Načtení jsonu s nabídkami ze serveru (Retrofit)
 - Zobrazení v kartách (Card view, Recycler view)
 - Rozklik do detailu nabídky, obsahujícího všechny detaily (Coordinator layout)
-- Slidovací galerie (View pager), rozklik obrázků na celou obrazovku
+- Slidovací galerie (View pager, Picasso), rozklik obrázků na celou obrazovku
 - Zobrazení počtu hvězdiček/liků, přidání hvězdičky, odeslání na server, aktualizace podle vrácených dat, změna buttonu na neaktivní
 - Float button pro kontakt (email/fb), float button pro like
 - Znovunačtení nabídek, zobrazení/skrytí loaderu (Progress bar)
