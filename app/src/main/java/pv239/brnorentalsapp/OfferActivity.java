@@ -72,6 +72,7 @@ public class OfferActivity extends AppCompatActivity {
         contactBtn = (FloatingActionButton) findViewById(R.id.fabContact);
 
         priceText.setText(offer.getPrice());
+        streetText.setText(offer.getStreet());
         descText.setText(offer.getDescription());
         urlText.setText(offer.getSource_url());
         likesText.setText(offer.getLikes().toString());

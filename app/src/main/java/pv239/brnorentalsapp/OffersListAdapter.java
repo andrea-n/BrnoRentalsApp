@@ -2,11 +2,13 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import java.util.List;
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
 	private RentalsAPIClient mClient;
+	private Context mContext;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView titleTextView;
@@ -48,15 +51,18 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		}
 	}
 
-	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client) {
-		mDataset = myDataset;
+	public OffersListAdapter(List<Offer> myDataset, RentalsAPIClient client, Context context) {
+
+    	Filter myFilter = new Filter(PreferenceManager.getDefaultSharedPreferences(context));
+
+		mDataset = myFilter.filter(myDataset);
 		mClient = client;
+		mContext = context;
 	}
 
 	@Override
 	public OffersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		final LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
-
 		final ViewHolder vh = new ViewHolder(layout);
 
 		vh.itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +74,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 				layout.getContext().startActivity(myIntent);
 			}
 		});
+
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+		if (mDataset.size() > 0)
+			editor.putString(Config.PREF_LAST_URL, mDataset.get(0).getSource_url());
+		else
+			editor.putString(Config.PREF_LAST_URL, "");
+		editor.apply();
+
 		return vh;
 	}
 
@@ -121,6 +135,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 	public void changeData(List<Offer> newDataset) {
 		mDataset.clear();
+
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+		if (newDataset.size() > 0)
+			editor.putString(Config.PREF_LAST_URL, newDataset.get(0).getSource_url());
+		else
+			editor.putString(Config.PREF_LAST_URL, "");
+		editor.apply();
+
 		mDataset.addAll(newDataset);
 		notifyDataSetChanged();
 	}

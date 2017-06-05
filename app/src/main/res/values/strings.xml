@@ -4,6 +4,52 @@
     <string name="reload">Reload</string>
     <string name="title_activity_offer">Rentals offer</string>
     <string name="action_settings">Settings</string>
+    <string name="settings_street">Street</string>
+    <string name="settings_price">Price</string>
+    <string name="settings_type">Type</string>
+
+    <!--
+        PREFERENCES NAMES
+    -->
+    <string name="pref_filters">pref_filters</string>
+    <string name="pref_area_filter">pref_area_filter</string>
+    <string name="pref_multi_choice_areas">pref_multi_choice_areas</string>
+    <string name="pref_type_filter">pref_type_filter</string>
+    <string name="pref_show_null_type">pref_show_null_type</string>
+    <string name="pref_multi_choice_types">pref_multi_choice_types</string>
+    <string name="pref_min_flat_area_filter">pref_min_flat_area_filter</string>
+    <string name="pref_max_flat_area_filter">pref_max_flat_area_filter</string>
+    <string name="pref_min_area">pref_min_area</string>
+    <string name="pref_max_area">pref_max_area</string>
+    <string name="pref_show_null_area">pref_show_null_area</string>
+    <string name="pref_notifications">pref_notifications</string>
+    <!--
+        PREFERENCES TEXTS
+    -->
+    <string name="pref_notification_category_title">Notification settings</string>
+    <string name="pref_notification_switch_title">Notifications</string>
+
+    <string name="pref_filters_category_title">Filters</string>
+    <string name="pref_filters_switch_title">Apply filters</string>
+
+    <string name="pref_area">Area</string>
+    <string name="pref_town_area_switch">Town area filter</string>
+    <string name="pref_town_area_title">Prepared town areas</string>
+    <string name="pref_town_area_semmary">Open list of areas</string>
+
+    <string name="pref_type_category_title">Apartment type</string>
+    <string name="pref_type_switch_title">Apartment type filter</string>
+    <string name="pref_type_multiselect_title">Type</string>
+    <string name="pref_type_multiselect_summary">Choice your prefered apartment types</string>
+
+    <string name="pref_area_category_title">Apartment area</string>
+    <string name="pref_area_switch_title">Min apartment area filter</string>
+    <string name="pref_min_area_picker_title">Min area</string>
+    <string name="pref_max_area_picker_title">Max area</string>
+    <string name="pref_area_null_show_title">Show offers without set area</string>
+
+    <string-array name="empty_array">
+    </string-array>
 
     <string name="title_activity_gallery_image">GalleryImageActivity</string>
     <string name="dummy_button">Dummy Button</string>

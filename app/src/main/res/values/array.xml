@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listAreas">
+        <item>Brno-střed</item>
+        <item>Brno-sever</item>
+        <item>Brno-Královo Pole</item>
+        <item>Brno-Líšeň</item>
+        <item>Brno-Bystrc</item>
+        <item>Brno-Židenice</item>
+        <item>Brno-Žabovřesky</item>
+        <item>Brno-Řečkovice a Mokrá Hora</item>
+        <item>Brno-Bohunice</item>
+        <item>Brno-Vinohrady</item>
+        <item>Brno-Starý Lískovec</item>
+        <item>Brno-Kohoutovice</item>
+        <item>Brno-Nový Lískovec</item>
+        <item>Brno-jih</item>
+        <item>Brno-Slatina</item>
+        <item>Brno-Černovice</item>
+        <item>Brno-Komín</item>
+        <item>Brno-Medlánky</item>
+        <item>Brno-Tuřany</item>
+        <item>Brno-Maloměřice a Obřany</item>
+        <item>Brno-Jundrov</item>
+        <item>Brno-Chrlice</item>
+        <item>Brno-Žebětín</item>
+        <item>Brno-Bosonohy</item>
+        <item>Brno-Ivanovice</item>
+        <item>Brno-Jehnice</item>
+        <item>Brno-Kníničky</item>
+        <item>Brno-Útěchov</item>
+        <item>Brno-Ořešín</item>
+    </string-array>
+    <string-array name="listAreasInit">
+        <item>Brno-střed</item>
+        <item>Brno-Královo Pole</item>
+    </string-array>
+
+    <string-array name="listTypes">
+        <item>1+kk</item>
+        <item>1+1</item>
+        <item>2+kk</item>
+        <item>2+1</item>
+        <item>3+kk</item>
+        <item>3+1</item>
+        <item>4+kk</item>
+        <item>4+1</item>
+        <item>5+kk</item>
+        <item>5+1</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="listTypesInit">
+        <item>2+kk</item>
+        <item>2+1</item>
+        <item>3+kk</item>
+        <item>3+1</item>
+    </string-array>
+</resources>
