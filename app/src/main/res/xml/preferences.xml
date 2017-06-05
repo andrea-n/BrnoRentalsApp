@@ -3,31 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:preference="http://schemas.android.com/apk/res-auto">
 
-s
-
-    <SwitchPreference
-        android:title="Notifications"
-        android:key="@string/pref_notifications"
-        android:defaultValue="true"/>
-
     <PreferenceCategory
-        android:title="Filters">
+        android:title="@string/pref_notification_category_title">
 
         <SwitchPreference
-            android:title="Set filters"
+            android:title="@string/pref_notification_switch_title"
+            android:key="@string/pref_notifications"
+            android:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/pref_filters_category_title">
+
+        <SwitchPreference
+            android:title="@string/pref_filters_switch_title"
             android:key="@string/pref_filters"
             android:defaultValue="false"/>
 
         <PreferenceScreen
             android:dependency="@string/pref_filters"
-            android:title="Filters">
+            android:title="@string/pref_filters_category_title">
 
             <PreferenceCategory
-                android:title="Area" >
+                android:title="@string/pref_area" >
 
                 <SwitchPreference
                     android:key="@string/pref_area_filter"
-                    android:title="Town area filter"
+                    android:title="@string/pref_town_area_switch"
                     android:defaultValue="false"/>
 
                 <MultiSelectListPreference
@@ -37,17 +41,17 @@ s
                     android:entryValues="@array/listAreas"
                     android:defaultValue="@array/listAreasInit"
                     android:key="@string/pref_multi_choice_areas"
-                    android:title="Prepared town areas"
-                    android:summary="Open list of areas"/>
+                    android:title="@string/pref_town_area_title"
+                    android:summary="@string/pref_town_area_semmary"/>
 
             </PreferenceCategory>
 
             <PreferenceCategory
-                android:title="Apartment type" >
+                android:title="@string/pref_type_category_title" >
 
                 <SwitchPreference
                     android:key="@string/pref_type_filter"
-                    android:title="Apartment type filter"
+                    android:title="@string/pref_type_switch_title"
                     android:defaultValue="false"/>
 
                 <MultiSelectListPreference
@@ -57,29 +61,22 @@ s
                     android:entryValues="@array/listTypes"
                     android:defaultValue="@array/listTypesInit"
                     android:key="@string/pref_multi_choice_types"
-                    android:title="Type"
-                    android:summary="Choice your prefered apartment types"/>
-                <!--
-                <SwitchPreference
-                    android:dependency="@string/pref_type_filter"
-                    android:key="@string/pref_show_null_type"
-                    android:title="Show offers without set type"
-                    android:defaultValue="false"/>
-                -->
+                    android:title="@string/pref_type_multiselect_title"
+                    android:summary="@string/pref_type_multiselect_summary"/>
             </PreferenceCategory>
 
             <PreferenceCategory
-                android:title="Apartment area" >
+                android:title="@string/pref_area_category_title" >
 
                 <SwitchPreference
                     android:key="@string/pref_min_flat_area_filter"
-                    android:title="Min apartment area filter"
+                    android:title="@string/pref_area_switch_title"
                     android:defaultValue="false"/>
 
                 <pv239.brnorentalsapp.NumberPickerPreference
                     android:dependency="@string/pref_min_flat_area_filter"
                     android:key="@string/pref_min_area"
-                    android:title="Min area"
+                    android:title="@string/pref_min_area_picker_title"
                     android:defaultValue="@integer/number_default_min_default"
                     preference:maxValue="@integer/number_max_value"
                     preference:minValue="@integer/number_min_value"
@@ -93,7 +90,7 @@ s
                 <pv239.brnorentalsapp.NumberPickerPreference
                     android:dependency="@string/pref_max_flat_area_filter"
                     android:key="@string/pref_max_area"
-                    android:title="Max area"
+                    android:title="@string/pref_max_area_picker_title"
                     android:defaultValue="@integer/number_default_max_default"
                     preference:maxValue="@integer/number_max_value"
                     preference:minValue="@integer/number_min_value"
@@ -101,7 +98,7 @@ s
 
                 <SwitchPreference
                     android:key="@string/pref_show_null_area"
-                    android:title="Show offers without set area"
+                    android:title="@string/pref_area_null_show_title"
                     android:defaultValue="false"/>
             </PreferenceCategory>
 

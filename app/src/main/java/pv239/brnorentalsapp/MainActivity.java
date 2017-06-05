@@ -70,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
 
-        // start notification "listener"
-        mTimer = new Timer();
-        NotificationTask myTask = new NotificationTask(this);
-        mTimer.schedule(myTask, 5000, 5000);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.PREF_NOTIFICATIONS, false)){
+            // start notification "listener"
+            mTimer = new Timer();
+            NotificationTask myTask = new NotificationTask(this);
+            mTimer.schedule(myTask, 5000, 5000);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

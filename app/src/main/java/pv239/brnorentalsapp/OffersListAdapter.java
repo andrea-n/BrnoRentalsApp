@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -85,8 +84,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 			editor.putString(Config.PREF_LAST_URL, "");
 		editor.apply();
 
-		Toast.makeText(mContext, PreferenceManager.getDefaultSharedPreferences(mContext).getString(Config.PREF_LAST_URL,""),Toast.LENGTH_LONG).show();
-
 		return vh;
 	}
 
@@ -147,8 +144,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 		else
 			editor.putString(Config.PREF_LAST_URL, "");
 		editor.apply();
-
-		Toast.makeText(mContext, PreferenceManager.getDefaultSharedPreferences(mContext).getString(Config.PREF_LAST_URL,""),Toast.LENGTH_LONG).show();
 
 		mDataset.addAll(newDataset);
 		notifyDataSetChanged();
