@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.ViewHolder> {
 	private List<Offer> mDataset;
 	private RentalsAPIClient mClient;
+	private Context mContext;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView titleTextView;
@@ -55,11 +57,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 		mDataset = myFilter.filter(myDataset);
 		mClient = client;
+		mContext = context;
 	}
 
 	@Override
 	public OffersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		final LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
+
+		Toast.makeText(mContext,"previous url: " + PreferenceManager.getDefaultSharedPreferences(mContext).getString(Config.PREF_LAST_URL, "jaj"),Toast.LENGTH_SHORT).show();
 
 		final ViewHolder vh = new ViewHolder(layout);
 
@@ -72,6 +77,9 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 				layout.getContext().startActivity(myIntent);
 			}
 		});
+
+		PreferenceManager.getDefaultSharedPreferences(mContext).edit().putString(Config.PREF_LAST_URL, mDataset.get(0).getSource_url());
+
 		return vh;
 	}
 

@@ -28,4 +28,6 @@ public class Config {
     public static final String PREF_MAX_AREA = "pref_max_area";
     public static final String PREF_SHOW_NULL_AREA = "pref_show_null_area";
 
+    public static final String PREF_LAST_URL = "pref_last_url";
+
 }

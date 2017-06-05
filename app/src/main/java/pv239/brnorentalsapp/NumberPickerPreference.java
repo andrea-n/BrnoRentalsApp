@@ -1,6 +1,7 @@
 package pv239.brnorentalsapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ public class NumberPickerPreference extends DialogPreference {
 
     private NumberPicker picker;
     private int value;
+    private Context mContext;
 
     public NumberPickerPreference(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.dialogPreferenceStyle);
@@ -33,6 +35,7 @@ public class NumberPickerPreference extends DialogPreference {
     public NumberPickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        mContext = context;
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NumberPickerPreference);
         minValue = a.getInteger(R.styleable.NumberPickerPreference_minValue, Config.MIN_APARTMENT_AREA);
         maxValue = a.getInteger(R.styleable.NumberPickerPreference_maxValue, Config.MAX_APARTMENT_AREA);
@@ -95,9 +98,20 @@ public class NumberPickerPreference extends DialogPreference {
 
     public void setMinValue(int minValue){
         this.minValue = minValue;
+        //Intent myIntent = new Intent(mContext, SettingsActivity.class);
+        //mContext.startActivity(myIntent);
+    }
+    public int getMinValue(){
+        return minValue;
     }
 
     public void setMaxValue(int maxValue){
         this.maxValue = maxValue;
+        //Intent myIntent = new Intent(mContext, SettingsActivity.class);
+        //mContext.startActivity(myIntent);
+    }
+
+    public int getMaxValue(){
+        return maxValue;
     }
 }

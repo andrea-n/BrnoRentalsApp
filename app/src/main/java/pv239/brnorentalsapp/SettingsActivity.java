@@ -77,29 +77,37 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         if (key.equals(Config.PREF_SHOW_NULL_AREA)){
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            if (sharedPreferences.getBoolean(getString(R.string.pref_min_flat_area_filter),false)
-                    || sharedPreferences.getBoolean(getString(R.string.pref_max_flat_area_filter),false)){
-                findPreference(getString(R.string.pref_show_null_area)).setEnabled(true);
+            if (sharedPreferences.getBoolean(Config.PREF_MIN_FLAT_AREA_FILTER,false)
+                    || sharedPreferences.getBoolean(Config.PREF_MAX_FLAT_AREA_FILTER,false)){
+                findPreference(Config.PREF_SHOW_NULL_AREA).setEnabled(true);
             } else {
-                findPreference(getString(R.string.pref_show_null_area)).setEnabled(false);
+                findPreference(Config.PREF_SHOW_NULL_AREA).setEnabled(false);
             }
-        } else if (key.equals(getString(R.string.pref_min_flat_area_filter))
-                || key.equals(getString(R.string.pref_max_flat_area_filter))){
-            updatePrefSummary(findPreference(getString(R.string.pref_show_null_area)),getString(R.string.pref_show_null_area));
+        } else if (key.equals(Config.PREF_MIN_FLAT_AREA_FILTER)
+                || key.equals(Config.PREF_MAX_FLAT_AREA_FILTER)){
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            if (key.equals(getString(R.string.pref_min_area))){
-                NumberPickerPreference pref = (NumberPickerPreference)findPreference(getString(R.string.pref_max_area));
-                int max = sharedPreferences.getInt(getString(R.string.pref_max_area),Config.MAX_APARTMENT_AREA);
+            updatePrefSummary(findPreference(Config.PREF_SHOW_NULL_AREA),Config.PREF_SHOW_NULL_AREA);
+
+        } else if (key.equals(Config.PREF_MIN_AREA)){
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                NumberPickerPreference pref = (NumberPickerPreference)findPreference(Config.PREF_MAX_AREA);
+                int max = sharedPreferences.getInt(Config.PREF_MAX_AREA,Config.MAX_APARTMENT_AREA);
                 int min = sharedPreferences.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA);
                 if ( max < min){
-
+                    pref.setValue(min);
                 }
-                pref.setMinValue(sharedPreferences.getInt(getString(R.string.pref_min_area),Config.MIN_APARTMENT_AREA));
-            } else if (key.equals(getString(R.string.pref_max_area))){
-                NumberPickerPreference pref = (NumberPickerPreference)findPreference(getString(R.string.pref_min_area));
-                pref.setMaxValue(sharedPreferences.getInt(getString(R.string.pref_max_area),Config.MAX_APARTMENT_AREA));
-            }
+                if (pref.getMinValue() != sharedPreferences.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA))
+                    pref.setMinValue(sharedPreferences.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA));
+        } else if (key.equals(Config.PREF_MAX_AREA)){
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                NumberPickerPreference pref = (NumberPickerPreference)findPreference(Config.PREF_MIN_AREA);
+                int max = sharedPreferences.getInt(Config.PREF_MAX_AREA,Config.MAX_APARTMENT_AREA);
+                int min = sharedPreferences.getInt(Config.PREF_MIN_AREA,Config.MIN_APARTMENT_AREA);
+                if ( max < min){
+                    pref.setValue(max);
+                }
+                if (pref.getMaxValue() != sharedPreferences.getInt(Config.PREF_MAX_AREA,Config.MAX_APARTMENT_AREA))
+                    pref.setMaxValue(sharedPreferences.getInt(Config.PREF_MAX_AREA,Config.MAX_APARTMENT_AREA));
 
         }
 
