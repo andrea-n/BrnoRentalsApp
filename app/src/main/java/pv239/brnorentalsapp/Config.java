@@ -17,6 +17,7 @@ public class Config {
     /*
      * PREFERENCES NAMES
      */
+    public static final String PREF_FILTERS = "pref_filters";
     public static final String PREF_AREA_FILTER = "pref_area_filter";
     public static final String PREF_MULTI_CHOICE_AREAS = "pref_multi_choice_areas";
     public static final String PREF_TYPE_FILTER = "pref_type_filter";
@@ -29,5 +30,6 @@ public class Config {
     public static final String PREF_SHOW_NULL_AREA = "pref_show_null_area";
 
     public static final String PREF_LAST_URL = "pref_last_url";
+    public static final String PREF_NOTIFICATIONS = "pref_notifications";
 
 }

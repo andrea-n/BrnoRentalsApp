@@ -2,7 +2,9 @@ package pv239.brnorentalsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -73,7 +75,12 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 			}
 		});
 
-		PreferenceManager.getDefaultSharedPreferences(mContext).edit().putString(Config.PREF_LAST_URL, mDataset.get(0).getSource_url());
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+		if (mDataset.size() > 0)
+			editor.putString(Config.PREF_LAST_URL, mDataset.get(0).getSource_url());
+		else
+			editor.putString(Config.PREF_LAST_URL, "");
+		editor.apply();
 
 		return vh;
 	}
@@ -128,6 +135,14 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 
 	public void changeData(List<Offer> newDataset) {
 		mDataset.clear();
+
+		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+		if (newDataset.size() > 0)
+			editor.putString(Config.PREF_LAST_URL, newDataset.get(0).getSource_url());
+		else
+			editor.putString(Config.PREF_LAST_URL, "");
+		editor.apply();
+
 		mDataset.addAll(newDataset);
 		notifyDataSetChanged();
 	}
