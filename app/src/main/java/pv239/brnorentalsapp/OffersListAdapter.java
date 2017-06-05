@@ -7,14 +7,12 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -63,9 +61,6 @@ public class OffersListAdapter extends RecyclerView.Adapter<OffersListAdapter.Vi
 	@Override
 	public OffersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		final LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.offer_item, parent, false);
-
-		Toast.makeText(mContext,"previous url: " + PreferenceManager.getDefaultSharedPreferences(mContext).getString(Config.PREF_LAST_URL, "jaj"),Toast.LENGTH_SHORT).show();
-
 		final ViewHolder vh = new ViewHolder(layout);
 
 		vh.itemView.setOnClickListener(new View.OnClickListener() {

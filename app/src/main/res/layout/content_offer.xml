@@ -41,6 +41,14 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/offerUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:textSize="18dp"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
                 android:id="@+id/offerStreet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

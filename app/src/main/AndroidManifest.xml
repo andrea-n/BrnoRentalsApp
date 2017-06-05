@@ -34,7 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pv239.brnorentalsapp.OfferActivity" />
         </activity>
->>>>>>> 9c98bdbb2f51376fb4ee5a2a8dcd6e72944f7449
     </application>
 
 </manifest>

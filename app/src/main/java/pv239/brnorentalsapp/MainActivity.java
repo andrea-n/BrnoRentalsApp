@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         RentalsAPIClient client = new RentalsAPIClient(this);
         loader = (ProgressBar) findViewById(R.id.offersLoader);
         offerService = new OfferService(recycler, client, loader, this);
-
         offerService.loadOffers();
 
 
@@ -57,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settingsAction:
                 Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 MainActivity.this.startActivity(myIntent);
+                return true;
+            case R.id.reloadAction:
+                if(offerService != null) {
+                    offerService.updateOffers();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

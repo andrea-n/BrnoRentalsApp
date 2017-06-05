@@ -26,6 +26,7 @@ public class OfferActivity extends AppCompatActivity {
     private TextView descText;
     private TextView contactText;
     private TextView infoText;
+    private TextView urlText;
     private ViewPager galleryPager;
     private TextView likesText;
     private FloatingActionButton likeBtn;
@@ -65,6 +66,7 @@ public class OfferActivity extends AppCompatActivity {
         descText = (TextView) findViewById(R.id.offerDescription);
         contactText = (TextView) findViewById(R.id.offerContacts);
         infoText = (TextView) findViewById(R.id.offerInfo);
+        urlText = (TextView) findViewById(R.id.offerUrl);
         likesText = (TextView) findViewById(R.id.offerLikes);
         likeBtn = (FloatingActionButton) findViewById(R.id.fabLike);
         contactBtn = (FloatingActionButton) findViewById(R.id.fabContact);
@@ -72,8 +74,16 @@ public class OfferActivity extends AppCompatActivity {
         priceText.setText(offer.getPrice());
         streetText.setText(offer.getStreet());
         descText.setText(offer.getDescription());
+        urlText.setText(offer.getSource_url());
         likesText.setText(offer.getLikes().toString());
         likeBtn.setOnClickListener(new LikesOnclickListener(likesText, offer, this, new RentalsAPIClient(this)));
+
+        if(offer.getStreet() != null) {
+            streetText.setText(offer.getStreet());
+        }
+        else {
+            streetText.getLayoutParams().height = 0;
+        }
 
         ArrayList<String> likedOffers = OfferService.getLikedOffers();
         for (String sourceUrl : likedOffers){
@@ -85,8 +95,8 @@ public class OfferActivity extends AppCompatActivity {
 
         if(offer.getEmail() != null) {
             contactBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("plain/text");
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[] { offer.getEmail() });
@@ -102,11 +112,23 @@ public class OfferActivity extends AppCompatActivity {
         if(offer.getEmail() != null) contacts += offer.getEmail() + "\n";
         if(offer.getPhone() != null) contacts += offer.getPhone() + "\n";
         if(offer.getFb_user() != null) contacts += offer.getFb_user() + "\n";
-        contactText.setText(contacts);
+
+        if(contacts != "") {
+            contactText.setText(contacts);
+        }
+        else {
+            contactText.getLayoutParams().height = 0;
+        }
 
         String info = "";
         if(offer.getType() != null) info += offer.getType() + "\n";
         if(offer.getArea() != null) info += offer.getArea() + "\n";
-        infoText.setText(info);
+
+        if(info != "") {
+            infoText.setText(info);
+        }
+        else {
+            infoText.getLayoutParams().height = 0;
+        }
     }
 }
