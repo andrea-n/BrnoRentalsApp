@@ -7,7 +7,8 @@
         NOTIFICATION SETTINGS
     -->
     <PreferenceCategory
-        android:title="@string/pref_notification_category_title">
+        android:title="@string/pref_notification_category_title"
+        android:layout="@layout/preferences_category">
 
         <SwitchPreference
             android:title="@string/pref_notification_switch_title"
@@ -21,7 +22,8 @@
         FILTER ENABLE/DISABLE
     -->
     <PreferenceCategory
-        android:title="@string/pref_filters_category_title">
+        android:title="@string/pref_filters_category_title"
+        android:layout="@layout/preferences_category">
 
         <SwitchPreference
             android:title="@string/pref_filters_switch_title"
@@ -39,7 +41,8 @@
                 TOWN AREA SETTINGS
             -->
             <PreferenceCategory
-                android:title="@string/pref_town_area_category_title" >
+                android:title="@string/pref_town_area_category_title"
+                android:layout="@layout/preferences_category">
 
                 <SwitchPreference
                     android:key="@string/pref_area_filter"
@@ -62,7 +65,8 @@
                 APARTMENT TYPE SETTINGS
             -->
             <PreferenceCategory
-                android:title="@string/pref_type_category_title" >
+                android:title="@string/pref_type_category_title"
+                android:layout="@layout/preferences_category">
 
                 <SwitchPreference
                     android:key="@string/pref_type_filter"
@@ -84,7 +88,8 @@
                 APARTMENT AREA SETTINGS
             -->
             <PreferenceCategory
-                android:title="@string/pref_area_category_title" >
+                android:title="@string/pref_area_category_title"
+                android:layout="@layout/preferences_category">
 
                 <SwitchPreference
                     android:key="@string/pref_min_flat_area_filter"
