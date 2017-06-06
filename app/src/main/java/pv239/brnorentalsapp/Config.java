@@ -7,6 +7,7 @@ package pv239.brnorentalsapp;
 public class Config {
     public static final String API_URL = "https://guarded-brook-34964.herokuapp.com";
 
+    public static final String TIMER = "timer";
 
     /*
      * PREFERENCES CONSTANTS
