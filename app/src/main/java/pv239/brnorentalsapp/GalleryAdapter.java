@@ -58,12 +58,12 @@ public class GalleryAdapter extends PagerAdapter {
             });
         }
 
-        ((ViewPager) container).addView(imageView, 0);
+        container.addView(imageView, 0);
         return imageView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((ImageView) object);
+        container.removeView((ImageView) object);
     }
 }

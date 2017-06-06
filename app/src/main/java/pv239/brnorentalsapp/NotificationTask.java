@@ -1,6 +1,5 @@
 package pv239.brnorentalsapp;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

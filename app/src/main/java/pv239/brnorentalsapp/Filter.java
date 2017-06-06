@@ -1,10 +1,7 @@
 package pv239.brnorentalsapp;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;

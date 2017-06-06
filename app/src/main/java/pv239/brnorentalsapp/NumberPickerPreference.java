@@ -1,7 +1,6 @@
 package pv239.brnorentalsapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
